@@ -33,6 +33,7 @@ export const _filter = (opt: string[], value: string): string[] => {
 export class DailyComponent implements OnInit {
   formGroup: FormGroup;
   amountAlert: string = "This field is required";
+  commentAlert: string = "This field is required";
   post: any = "";
   categories: any = "";
   removable: boolean = false;
@@ -202,7 +203,7 @@ export class DailyComponent implements OnInit {
     this.formGroup = this.formBuilder.group({
       expense: [null, [Validators.required, Validators.minLength(1)]],
       amount: [null, Validators.required],
-      description: [
+      comment: [
         null,
         [
           Validators.required,
