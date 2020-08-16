@@ -1,0 +1,32 @@
+table {
+  border-collapse: collapse;
+}
+
+table,
+th,
+td {
+  border: 1px solid gainsboro;
+}
+
+th,
+td {
+  padding: 3px;
+  text-align: left;
+}
+
+.income-first-column {
+  width: 200px;
+  font-weight: bold;
+}
+
+.income-input {
+  width: 50px;
+}
+
+.income-input-header {
+  width: 58px;
+}
+
+.income-input-comment {
+  width: 258px;
+}
