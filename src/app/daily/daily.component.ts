@@ -14,16 +14,6 @@ interface ExpenseType {
   value: string;
   viewValue: string;
 }
-export interface StateGroup {
-  letter: string;
-  names: string[];
-}
-
-export const _filter = (opt: string[], value: string): string[] => {
-  const filterValue = value.toLowerCase();
-
-  return opt.filter((item) => item.toLowerCase().indexOf(filterValue) === 0);
-};
 
 @Component({
   selector: "app-daily",
@@ -33,140 +23,17 @@ export const _filter = (opt: string[], value: string): string[] => {
 export class DailyComponent implements OnInit {
   formGroup: FormGroup;
   amountAlert: string = "This field is required";
-  commentAlert: string = "This field is required";
+  commentAlert: string = "comment can be max 100 char";
   post: any = "";
   categories: any = "";
   removable: boolean = false;
-
-  foods: ExpenseType[] = [
-    { value: "0", viewValue: "Savings" },
-    { value: "1", viewValue: "Home Expenses" },
-    { value: "2", viewValue: "Transportation" },
-    { value: "2", viewValue: "Health" },
-    { value: "2", viewValue: "Charity/Gifts" },
-    { value: "2", viewValue: "Daily Living" },
-    { value: "2", viewValue: "Entertainment" },
-    { value: "2", viewValue: "Obligations" },
-    { value: "2", viewValue: "Subscriptions" },
-    { value: "2", viewValue: "Miscellaneous" },
-  ];
-
-  stateForm: FormGroup = this.formBuilder.group({
-    stateGroup: "",
-  });
-
-  stateGroups: StateGroup[] = [
-    {
-      letter: "A",
-      names: ["Alabama", "Alaska", "Arizona", "Arkansas"],
-    },
-    {
-      letter: "C",
-      names: ["California", "Colorado", "Connecticut"],
-    },
-    {
-      letter: "D",
-      names: ["Delaware"],
-    },
-    {
-      letter: "F",
-      names: ["Florida"],
-    },
-    {
-      letter: "G",
-      names: ["Georgia"],
-    },
-    {
-      letter: "H",
-      names: ["Hawaii"],
-    },
-    {
-      letter: "I",
-      names: ["Idaho", "Illinois", "Indiana", "Iowa"],
-    },
-    {
-      letter: "K",
-      names: ["Kansas", "Kentucky"],
-    },
-    {
-      letter: "L",
-      names: ["Louisiana"],
-    },
-    {
-      letter: "M",
-      names: [
-        "Maine",
-        "Maryland",
-        "Massachusetts",
-        "Michigan",
-        "Minnesota",
-        "Mississippi",
-        "Missouri",
-        "Montana",
-      ],
-    },
-    {
-      letter: "N",
-      names: [
-        "Nebraska",
-        "Nevada",
-        "New Hampshire",
-        "New Jersey",
-        "New Mexico",
-        "New York",
-        "North Carolina",
-        "North Dakota",
-      ],
-    },
-    {
-      letter: "Otee",
-      names: ["Ohio", "Oklahoma", "Oregon", "prasanna"],
-    },
-    {
-      letter: "P",
-      names: ["Pennsylvania"],
-    },
-    {
-      letter: "R",
-      names: ["Rhode Island"],
-    },
-    {
-      letter: "S",
-      names: ["South Carolina", "South Dakota"],
-    },
-    {
-      letter: "T",
-      names: ["Tennessee", "Texas"],
-    },
-    {
-      letter: "U",
-      names: ["Utah"],
-    },
-    {
-      letter: "V",
-      names: ["Vermont", "Virginia"],
-    },
-    {
-      letter: "W",
-      names: ["Washington", "West Virginia", "Wisconsin", "Wyoming"],
-    },
-  ];
-
-  stateGroupOptions: Observable<StateGroup[]>;
 
   constructor(private formBuilder: FormBuilder) {}
 
   ngOnInit() {
     this.createForm();
-    this.stateGroupOptions = this.stateForm
-      .get("stateGroup")!
-      .valueChanges.pipe(
-        startWith(""),
-        map((value) => this._filterGroup(value))
-      );
-
     this.categories = [
-      { name: "Swiggy", selected: false },
+      { name: "Swiggy", selected: false, value: 1 },
       { name: "Food Item", selected: false },
       { name: "Groceries", selected: false },
       { name: "Medicine", selected: false },
@@ -203,29 +70,9 @@ export class DailyComponent implements OnInit {
     this.formGroup = this.formBuilder.group({
       expense: [null, [Validators.required, Validators.minLength(1)]],
       amount: [null, Validators.required],
-      comment: [
-        null,
-        [
-          Validators.required,
-          Validators.minLength(5),
-          Validators.maxLength(10),
-        ],
-      ],
-      stateGroup: "",
+      comment: [null, [Validators.required, Validators.maxLength(100)]],
+      category: "",
     });
-  }
-
-  private _filterGroup(value: string): StateGroup[] {
-    if (value) {
-      return this.stateGroups
-        .map((group) => ({
-          letter: group.letter,
-          names: _filter(group.names, value),
-        }))
-        .filter((group) => group.names.length > 0);
-    }
-
-    return this.stateGroups;
   }
 
   getErrorExpense() {

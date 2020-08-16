@@ -1,82 +1,59 @@
 <div fxLayout="row" fxLayout.xs="column" fxLayoutWrap fxLayoutGap="0.5%" fxLayoutAlign="center"
-  *ngIf="!post; else forminfo" novalidate>
+  class="example-container" *ngIf="!post; else forminfo" novalidate>
 
   <form [formGroup]="formGroup" (ngSubmit)="onSubmit(formGroup.value)" class="form">
-    <div fxLayout.xs="column">
-
+    <div>
       <!-- expense title -->
-      <div fxFlex="50%">
-        <mat-form-field class="form-element">
-          <input matInput placeholder="Expense Information" formControlName="expense">
-          <mat-error *ngIf="!formGroup.controls['expense'].valid && formGroup.controls['expense'].touched">
-            {{ getErrorExpense() }}
-          </mat-error>
-        </mat-form-field>
-      </div>
+      <mat-form-field class="form-element" [style.width.px]=327>
+        <input matInput placeholder="Expense Information" formControlName="expense">
+        <mat-error *ngIf="!formGroup.controls['expense'].valid && formGroup.controls['expense'].touched">
+          {{ getErrorExpense() }}
+        </mat-error>
+      </mat-form-field>
 
       <!-- amount field -->
-      <div fxFlex="50%">
-        <mat-form-field class="form-element">
-          <input type="number" matInput placeholder="Amount &#8377;" formControlName="amount">
-          <mat-error *ngIf="!formGroup.controls['amount'].valid && formGroup.controls['amount'].touched">
-            {{ amountAlert }}
-          </mat-error>
-        </mat-form-field>
-      </div>
+      <mat-form-field class="form-element" [style.width.px]=127>
+        <input type="number" matInput placeholder="Amount &#8377;" formControlName="amount">
+        <mat-error *ngIf="!formGroup.controls['amount'].valid && formGroup.controls['amount'].touched">
+          {{ amountAlert }}
+        </mat-error>
+      </mat-form-field>
+
     </div>
 
     <!-- comment field -->
-    <div fxFlex="50%">
-      <mat-form-field class="form-element">
-        <input matInput placeholder="Comment" formControlName="comment">
-        <mat-error *ngIf="!formGroup.controls['comment'].valid && formGroup.controls['comment'].touched">
-          {{ commentAlert }}
-        </mat-error>
-      </mat-form-field>
-    </div>
+    <mat-form-field class="form-element" [style.width.px]=474>
+      <input matInput placeholder="Comment" formControlName="comment">
+      <mat-error *ngIf="!formGroup.controls['comment'].valid && formGroup.controls['comment'].touched">
+        {{ commentAlert }}
+      </mat-error>
+    </mat-form-field>
+
 
 
     <!-- frequently used expense category -->
-    <div fxFlex="50%">
-      <div>
-        <label style="color:gray">Choose expense category : </label>
-      </div>
-      <br />
-      <mat-chip-list #chipList [multiple]="true" [selectable]="true">
-        <mat-chip *ngFor="let category of categories" #chip="matChip"
-          (click)="category.selected ? chip.deselect() : chip.selectViaInteraction()" [selected]="category.selected"
-          [selectable]="true" class="leadr-category-chip" (selectionChange)="changeSelected($event, category)">
-          {{category.name}}
-          <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
-        </mat-chip>
-      </mat-chip-list>
+    <div>
+      <label style="color:gray">Choose expense category : </label>
     </div>
+    <br />
+    <mat-chip-list #chipList [multiple]="true" [selectable]="true" formControlName="category">
+      <mat-chip *ngFor="let category of categories" #chip="matChip"
+        (click)="category.selected ? chip.deselect() : chip.selectViaInteraction()" [selected]="category.selected"
+        [selectable]="true" class="leadr-category-chip" (selectionChange)="changeSelected($event, category)">
+        {{category.name}}
+        <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+      </mat-chip>
+    </mat-chip-list>
     <br />
 
     <!--slide toggel-->
     <!-- others, when selected dropdown populates all category -->
-    <div fxFlex="50%">
+    <div hidden fxFlex="50%">
       <mat-slide-toggle>Other Category</mat-slide-toggle>
     </div>
 
-    <!--auto complete: all category-->
-    <div fxFlex="50%">
 
-      <mat-form-field>
-        <input type="text" matInput placeholder="Expense Category" formControlName="stateGroup" required
-          [matAutocomplete]="autoGroup">
-        <!-- #docregion mat-autocomplete -->
-        <mat-autocomplete #autoGroup="matAutocomplete">
-          <mat-optgroup *ngFor="let group of stateGroupOptions | async" [label]="group.letter">
-            <mat-option *ngFor="let name of group.names" [value]="name">
-              {{name}}
-            </mat-option>
-          </mat-optgroup>
-        </mat-autocomplete>
-        <!-- #enddocregion mat-autocomplete -->
-      </mat-form-field>
-    </div>
-
+    <br />
     <!--submit button-->
     <div fxFlex="50%">
       <div class="form-element">
