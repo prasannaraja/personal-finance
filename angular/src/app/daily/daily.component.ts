@@ -42,36 +42,36 @@ export class DailyComponent implements OnInit {
   ngOnInit() {
     this.createForm();
     this.categories = [
-      { name: "Swiggy", selected: false },
-      { name: "Food Item", selected: false },
-      { name: "Groceries", selected: false },
-      { name: "Medicine", selected: false },
-      { name: "Savings", selected: false },
-      { name: "PPF Savings", selected: false },
-      { name: "Medical Insurance", selected: false },
-      { name: "Entertainment", selected: false },
-      { name: "Amazon Child Item", selected: false },
-      { name: "Amazon", selected: false },
-      { name: "Amazon EMI", selected: false },
-      { name: "Netflix", selected: false },
-      { name: "Youtube Premium", selected: false },
-      { name: "HotStar", selected: false },
-      { name: "ICloud", selected: false },
-      { name: "Apple TV", selected: false },
-      { name: "Jio", selected: false },
-      { name: "Vodafone", selected: false },
-      { name: "Internet", selected: false },
-      { name: "Adjustment", selected: false },
-      { name: "House Rent", selected: false },
-      { name: "Apartment Maintance", selected: false },
-      { name: "Electricity Bill", selected: false },
-      { name: "BESCOM", selected: false },
-      { name: "Petrol", selected: false },
-      { name: "Taxi", selected: false },
-      { name: "Car Service", selected: false },
-      { name: "Furniture", selected: false },
-      { name: "Maid", selected: false },
-      { name: "Others", selected: false },
+      { name: "Swiggy", selected: false, group: 49, category: 7 },
+      { name: "Food Item", selected: false, group: 49, category: 7 },
+      { name: "Groceries", selected: false, group: 49, category: 7 },
+      { name: "Medicine", selected: false, group: 49, category: 7 },
+      { name: "Savings", selected: false, group: 49, category: 7 },
+      { name: "PPF Savings", selected: false, group: 49, category: 7 },
+      { name: "Medical Insurance", selected: false, group: 49, category: 7 },
+      { name: "Entertainment", selected: false, group: 49, category: 7 },
+      { name: "Amazon Child Item", selected: false, group: 49, category: 7 },
+      { name: "Amazon", selected: false, group: 49, category: 7 },
+      { name: "Amazon EMI", selected: false, group: 49, category: 7 },
+      { name: "Netflix", selected: false, group: 49, category: 7 },
+      { name: "Youtube Premium", selected: false, group: 49, category: 7 },
+      { name: "HotStar", selected: false, group: 49, category: 7 },
+      { name: "ICloud", selected: false, group: 49, category: 7 },
+      { name: "Apple TV", selected: false, group: 49, category: 7 },
+      { name: "Jio", selected: false, group: 49, category: 7 },
+      { name: "Vodafone", selected: false, group: 49, category: 7 },
+      { name: "Internet", selected: false, group: 49, category: 7 },
+      { name: "Adjustment", selected: false, group: 49, category: 7 },
+      { name: "House Rent", selected: false, group: 49, category: 7 },
+      { name: "Apartment Maintance", selected: false, group: 49, category: 7 },
+      { name: "Electricity Bill", selected: false, group: 49, category: 7 },
+      { name: "BESCOM", selected: false, group: 49, category: 7 },
+      { name: "Petrol", selected: false, group: 49, category: 7 },
+      { name: "Taxi", selected: false, group: 49, category: 7 },
+      { name: "Car Service", selected: false, group: 49, category: 7 },
+      { name: "Furniture", selected: false, group: 49, category: 7 },
+      { name: "Maid", selected: false, group: 49, category: 7 },
+      { name: "Others", selected: false, group: 0, category: 0 },
     ];
   }
 
@@ -95,6 +95,7 @@ export class DailyComponent implements OnInit {
   }
 
   onSubmit(data) {
+    debugger;
     let exp = new Expense();
     exp.expense_text = data.expense;
     exp.amount = data.amount;

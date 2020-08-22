@@ -15,7 +15,9 @@ app.listen(HTTP_PORT, () => {
 });
 
 app.get("/api/expenses", (req, res, next) => {
-  var sql = "select * from expenses";
+  //var sql = "select * from expenses";
+  var sql =
+    "select expenses.id as id,expenses.expense_text as expense_text,expenses.amount as amount,expenses.expense_comment as expense_comment,groups.name as expense_group_name,category.name as expense_category_name,groups.id as expense_group,expenses.expense_category as expense_category,expenses.expense_date as expense_date	from expenses join category on expenses.expense_category = category.id join groups on groups.id = category.group_id";
   var params = [];
   db.all(sql, params, (err, rows) => {
     if (err) {

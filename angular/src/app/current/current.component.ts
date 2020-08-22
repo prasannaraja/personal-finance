@@ -16,8 +16,12 @@ export class CurrentComponent implements OnInit {
     "id",
     "expense_text",
     "amount",
+    "expense_group_name",
+    "expense_category_name",
     "expense_comment",
+    "expense_date",
     "expense_category",
+    "expense_group",
     "action",
   ];
   dataSource: any;
