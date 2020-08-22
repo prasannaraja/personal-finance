@@ -13,17 +13,11 @@ import { HttpClientModule } from "@angular/common/http";
 import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from "@angular/material/form-field";
 import { MatNativeDateModule } from "@angular/material/core";
 import { platformBrowserDynamic } from "@angular/platform-browser-dynamic";
-import { MatDialogModule } from "@angular/material/dialog";
-
-import { DailyDialogBox } from "./dialog/dialy-dialog-box";
+import { DashboardComponent } from './dashboard/dashboard.component';
+import { CurrentComponent } from './current/current.component';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    MonthlyComponent,
-    DailyComponent,
-    MatDialogModule,
-  ],
+  declarations: [AppComponent, MonthlyComponent, DailyComponent, DashboardComponent, CurrentComponent],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
@@ -34,7 +28,6 @@ import { DailyDialogBox } from "./dialog/dialy-dialog-box";
     ReactiveFormsModule,
     AppRoutingModule,
   ],
-  entryComponents: [MatDialogModule, DailyComponent, DailyDialogBox],
   providers: [
     ValidationService,
     {

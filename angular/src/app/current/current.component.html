@@ -1,0 +1,70 @@
+<div>
+    <div class="example-button-row">
+        <button mat-raised-button color="primary" (click)="openDialog()">Add Expenses</button>
+    </div>
+</div>
+<div hidden>
+    <mat-grid-list cols="4" rowHeight="4:1">
+        <mat-grid-tile>
+            <mat-card>1 card</mat-card>
+        </mat-grid-tile>
+        <mat-grid-tile>
+            <mat-card>2 card</mat-card>
+        </mat-grid-tile>
+        <mat-grid-tile>
+            <mat-card>3 card</mat-card>
+        </mat-grid-tile>
+        <mat-grid-tile>
+            <mat-card>4 card</mat-card>
+        </mat-grid-tile>
+    </mat-grid-list>
+</div>
+<br />
+<div class="mat-elevation-z8">
+    <table mat-table [dataSource]="dataSource">
+
+        <!-- Position Column -->
+        <ng-container matColumnDef="id">
+            <th mat-header-cell *matHeaderCellDef> No. </th>
+            <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+        </ng-container>
+
+        <!-- Expense Column -->
+        <ng-container matColumnDef="expense_text">
+            <th mat-header-cell *matHeaderCellDef> Expense </th>
+            <td mat-cell *matCellDef="let element"> {{element.expense_text}} </td>
+        </ng-container>
+
+        <!-- Amount Column -->
+        <ng-container matColumnDef="amount">
+            <th mat-header-cell *matHeaderCellDef> Amount </th>
+            <td mat-cell *matCellDef="let element"> {{element.amount| currency:"&#8377;"}} </td>
+        </ng-container>
+
+        <!-- Comment Column -->
+        <ng-container matColumnDef="expense_comment">
+            <th mat-header-cell *matHeaderCellDef> Comment </th>
+            <td mat-cell *matCellDef="let element"> {{element.expense_comment}} </td>
+        </ng-container>
+
+        <!-- Category Column -->
+        <ng-container matColumnDef="expense_category">
+            <th mat-header-cell *matHeaderCellDef> Category </th>
+            <td mat-cell *matCellDef="let element"> {{element.expense_category}} </td>
+        </ng-container>
+
+        <!-- Action Column -->
+        <ng-container matColumnDef="action">
+            <th mat-header-cell *matHeaderCellDef> Action </th>
+            <td mat-cell *matCellDef="let element" class="action-link">
+
+                <a href><i class="material-icons">delete</i></a>
+            </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+
+    <mat-paginator [pageSize]="10" [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+</div>
