@@ -32,7 +32,6 @@ export class CurrentComponent implements OnInit {
 
   ngOnInit(): void {
     this.apiService.getExpense().subscribe((expenses: any) => {
-      debugger;
       console.log(expenses);
       this.dataSource = new MatTableDataSource<Expense>(expenses.data);
       this.dataSource.paginator = this.paginator;

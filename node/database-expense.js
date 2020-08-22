@@ -34,7 +34,7 @@ let db = new sqlite3.Database(DBSOURCE, (err) => {
             "Sample Item",
             502,
             "Its a sample expense item",
-            3,
+            50,
             1,
             "2020-08-20 17:51:52",
             "2020-08-20 17:51:52",
@@ -46,7 +46,7 @@ let db = new sqlite3.Database(DBSOURCE, (err) => {
 
     db.run(
       `CREATE TABLE groups (
-            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            id INTEGER PRIMARY KEY,
             name text,
             isActive int
             )`,
@@ -55,18 +55,18 @@ let db = new sqlite3.Database(DBSOURCE, (err) => {
           // Table already created
         } else {
           // Table just created, creating some rows
-          var insert = "INSERT INTO groups (name,isActive) VALUES (?,?)";
-          db.run(insert, ["Income", 1]);
-          db.run(insert, ["Savings", 1]);
-          db.run(insert, ["Home Expenses", 1]);
-          db.run(insert, ["Transportation", 1]);
-          db.run(insert, ["Health", 1]);
-          db.run(insert, ["Charity/Gifts", 1]);
-          db.run(insert, ["Daily Living", 1]);
-          db.run(insert, ["Entertainment", 1]);
-          db.run(insert, ["Obligations", 1]);
-          db.run(insert, ["Subscriptions", 1]);
-          db.run(insert, ["Miscellaneous", 1]);
+          var insert = "INSERT INTO groups (id,name,isActive) VALUES (?,?,?)";
+          db.run(insert, [1, "Income", 1]);
+          db.run(insert, [2, "Savings", 1]);
+          db.run(insert, [3, "Home Expenses", 1]);
+          db.run(insert, [4, "Transportation", 1]);
+          db.run(insert, [5, "Health", 1]);
+          db.run(insert, [6, "Charity/Gifts", 1]);
+          db.run(insert, [7, "Daily Living", 1]);
+          db.run(insert, [8, "Entertainment", 1]);
+          db.run(insert, [9, "Obligations", 1]);
+          db.run(insert, [10, "Subscriptions", 1]);
+          db.run(insert, [11, "Miscellaneous", 1]);
         }
       }
     );
@@ -109,7 +109,7 @@ let db = new sqlite3.Database(DBSOURCE, (err) => {
           db.run(insert, ["Furnishings/Appliances", 3, 1]);
           db.run(insert, ["Lawn/Garden", 3, 1]);
           db.run(insert, ["Maintenance/Supplies", 3, 1]);
-          db.run(insert, ["Improvements", 3, 1]);
+          db.run(insert, ["Maid Salary", 3, 1]);
           db.run(insert, ["Other", 3, 1]);
           db.run(insert, ["Vehicle Payments", 4, 1]);
           db.run(insert, ["Auto Insurance", 4, 1]);
@@ -140,8 +140,8 @@ let db = new sqlite3.Database(DBSOURCE, (err) => {
           db.run(insert, ["Other", 7, 1]);
           db.run(insert, ["Music", 8, 1]);
           db.run(insert, ["Movies/Theater/Concerts", 8, 1]);
-          db.run(insert, ["Books", 8, 1]);
-          db.run(insert, ["Hobbies", 8, 1]);
+          db.run(insert, ["Netflix", 8, 1]);
+          db.run(insert, ["Youtube", 8, 1]);
           db.run(insert, ["Sports", 8, 1]);
           db.run(insert, ["Recreation", 8, 1]);
           db.run(insert, ["Toys/Gadgets/Games", 8, 1]);
