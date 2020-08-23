@@ -1,4 +1,4 @@
-import { HttpClient, HttpHeaders } from "@angular/common/http";
+import { HttpClient, HttpHeaders, HttpParams } from "@angular/common/http";
 import { Expense } from "./expenses";
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
@@ -15,5 +15,9 @@ export class ApiService {
     const headers = { "content-type": "application/json" };
     const body = JSON.stringify(expense);
     return this.http.post("/api/expense/", body, { headers: headers });
+  }
+
+  deleteExpense(expenseId: number) {
+    return this.http.delete("/api/delete/" + expenseId);
   }
 }

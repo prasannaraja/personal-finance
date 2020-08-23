@@ -5,6 +5,22 @@ import { MatDialog } from "@angular/material/dialog";
 import { DailyComponent } from "../daily/daily.component";
 import { Expense } from "../expenses";
 import { ApiService } from "../api.service";
+import { error } from "protractor";
+import { HttpParams } from "@angular/common/http";
+import { MatSnackBar } from "@angular/material/snack-bar";
+
+@Component({
+  selector: "expense-deleted-snack-bar",
+  template: `<span> <b>Alert</b> : Expense Deleted ! </span>`,
+  styles: [
+    `
+      .deleted-snack-bar {
+        color: hotpink;
+      }
+    `,
+  ],
+})
+export class ExpenseDeletedSnackBarComponent {}
 
 @Component({
   selector: "app-current",
@@ -28,9 +44,17 @@ export class CurrentComponent implements OnInit {
 
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
 
-  constructor(public dialog: MatDialog, private apiService: ApiService) {}
+  constructor(
+    public dialog: MatDialog,
+    private apiService: ApiService,
+    private _snackBar: MatSnackBar
+  ) {}
 
   ngOnInit(): void {
+    this.loadExpenseTable();
+  }
+
+  loadExpenseTable() {
     this.apiService.getExpense().subscribe((expenses: any) => {
       console.log(expenses);
       this.dataSource = new MatTableDataSource<Expense>(expenses.data);
@@ -38,11 +62,36 @@ export class CurrentComponent implements OnInit {
     });
   }
 
+  deleteExpense(expenseId: number) {
+    this._snackBar.openFromComponent(ExpenseDeletedSnackBarComponent, {
+      duration: 3000,
+    });
+
+    if (false)
+      this.apiService.deleteExpense(expenseId).subscribe(
+        (res) => {
+          console.log("deleted");
+          this._snackBar.openFromComponent(ExpenseDeletedSnackBarComponent, {
+            duration: 500,
+          });
+        },
+        (error) => {
+          console.log("error:");
+          console.log(error);
+        },
+        () => {
+          // 'onCompleted' callback.
+          // No errors, route to new page here
+        }
+      );
+  }
+
   openDialog() {
     const dialogRef = this.dialog.open(DailyComponent);
 
     dialogRef.afterClosed().subscribe((result) => {
       console.log(`Dialog result: ${result}`);
+      this.loadExpenseTable();
     });
   }
 }

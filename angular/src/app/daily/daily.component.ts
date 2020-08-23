@@ -13,7 +13,11 @@ import { ApiService } from "../api.service";
 import { Expense } from "../expenses";
 import { MatPaginator } from "@angular/material/paginator";
 import { MatTableDataSource } from "@angular/material/table";
-import { MatDialog } from "@angular/material/dialog";
+import {
+  MatDialog,
+  MAT_DIALOG_DATA,
+  MatDialogRef,
+} from "@angular/material/dialog";
 
 interface ExpenseType {
   value: string;
@@ -36,7 +40,9 @@ export class DailyComponent implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder,
-    private apiService: ApiService
+    private apiService: ApiService,
+    @Inject(MAT_DIALOG_DATA) private data: any,
+    private dialogRef: MatDialogRef<DailyComponent>
   ) {}
 
   ngOnInit() {
@@ -113,6 +119,8 @@ export class DailyComponent implements OnInit {
       (res) => {
         console.log("saved:");
         console.log(res);
+
+        this.dialogRef.close();
       },
       (error) => {
         console.log("error:");
