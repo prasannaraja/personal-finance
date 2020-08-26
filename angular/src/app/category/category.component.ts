@@ -1,18 +1,17 @@
-import { Component, OnInit, ViewChild, Inject } from "@angular/core";
+import { Component, OnInit, ViewChild } from "@angular/core";
 import { MatPaginator } from "@angular/material/paginator";
-import { MatTableDataSource } from "@angular/material/table";
 import { MatDialog } from "@angular/material/dialog";
-import { DailyComponent } from "../daily/daily.component";
-import { Expense } from "../models/expenses";
 import { ApiService } from "../api.service";
-import { error } from "protractor";
-import { HttpParams } from "@angular/common/http";
 import { MatSnackBar } from "@angular/material/snack-bar";
+import { MatTableDataSource } from "@angular/material/table";
+import { Expense } from "../models/expenses";
 import { ConfirmDialogComponent } from "../Components/Shared/confirm-dialog/confirm-dialog.component";
+import { ExpenseDeletedSnackBarComponent } from "../current/current.component";
+import { DailyComponent } from "../daily/daily.component";
 
 @Component({
-  selector: "expense-deleted-snack-bar",
-  template: `<span> <b>Alert</b> : Expense Deleted Successfully! </span>`,
+  selector: "category-deleted-snack-bar",
+  template: `<span> <b>Alert</b> : Category Deleted Successfully! </span>`,
   styles: [
     `
       .deleted-snack-bar {
@@ -21,26 +20,15 @@ import { ConfirmDialogComponent } from "../Components/Shared/confirm-dialog/conf
     `,
   ],
 })
-export class ExpenseDeletedSnackBarComponent {}
+export class CategoryDeletedSnackBarComponent {}
 
 @Component({
-  selector: "app-current",
-  templateUrl: "./current.component.html",
-  styleUrls: ["./current.component.css"],
+  selector: "app-category",
+  templateUrl: "./category.component.html",
+  styleUrls: ["./category.component.css"],
 })
-export class CurrentComponent implements OnInit {
-  displayedColumns: string[] = [
-    "id",
-    "expense_text",
-    "amount",
-    "expense_group_name",
-    "expense_category_name",
-    "expense_comment",
-    "expense_date",
-    "expense_category",
-    "expense_group",
-    "action",
-  ];
+export class CategoryComponent implements OnInit {
+  displayedColumns: string[] = ["id", "name", "group_id"];
   dataSource: any;
 
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
@@ -52,11 +40,11 @@ export class CurrentComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.loadExpenseTable();
+    this.loadCategory();
   }
 
-  loadExpenseTable() {
-    this.apiService.getExpense().subscribe((expenses: any) => {
+  loadCategory() {
+    this.apiService.getCategory().subscribe((expenses: any) => {
       console.log(expenses);
       this.dataSource = new MatTableDataSource<Expense>(expenses.data);
       this.dataSource.paginator = this.paginator;
@@ -69,7 +57,7 @@ export class CurrentComponent implements OnInit {
       maxWidth: "800px",
       data: {
         title: "Are you sure?",
-        message: "You are about to delete that expense ",
+        message: "You are about to delete that category ",
       },
     });
 
@@ -83,7 +71,7 @@ export class CurrentComponent implements OnInit {
             this._snackBar.openFromComponent(ExpenseDeletedSnackBarComponent, {
               duration: 3000,
             });
-            this.loadExpenseTable();
+            this.loadCategory();
           },
           (error) => {
             console.log("error:");
@@ -104,7 +92,7 @@ export class CurrentComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe((result) => {
       console.log(`Dialog result: ${result}`);
-      this.loadExpenseTable();
+      this.loadCategory();
     });
   }
 }

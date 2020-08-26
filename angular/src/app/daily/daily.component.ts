@@ -10,7 +10,7 @@ import { ValidationService } from "../validation.service";
 import { startWith, map } from "rxjs/operators";
 import { MatAccordion } from "@angular/material/expansion";
 import { ApiService } from "../api.service";
-import { Expense } from "../expenses";
+import { Expense } from "../models/expenses";
 import { MatPaginator } from "@angular/material/paginator";
 import { MatTableDataSource } from "@angular/material/table";
 import {
@@ -48,6 +48,7 @@ export class DailyComponent implements OnInit {
   ngOnInit() {
     this.createForm();
     this.categories = [
+      { name: "MK Retail", selected: false, categoryId: 45 },
       { name: "Swiggy", selected: false, categoryId: 50 },
       { name: "Food Item", selected: false, categoryId: 50 },
       { name: "Groceries", selected: false, categoryId: 45 },

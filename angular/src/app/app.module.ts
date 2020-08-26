@@ -13,11 +13,24 @@ import { HttpClientModule } from "@angular/common/http";
 import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from "@angular/material/form-field";
 import { MatNativeDateModule } from "@angular/material/core";
 import { platformBrowserDynamic } from "@angular/platform-browser-dynamic";
-import { DashboardComponent } from './dashboard/dashboard.component';
-import { CurrentComponent } from './current/current.component';
+import { DashboardComponent } from "./dashboard/dashboard.component";
+import { CurrentComponent } from "./current/current.component";
+import { ConfirmDialogComponent } from "./Components/Shared/confirm-dialog/confirm-dialog.component";
+import { GroupComponent } from "./group/group.component";
+import { CategoryComponent } from "./category/category.component";
 
 @NgModule({
-  declarations: [AppComponent, MonthlyComponent, DailyComponent, DashboardComponent, CurrentComponent],
+  declarations: [
+    AppComponent,
+    MonthlyComponent,
+    DailyComponent,
+    DashboardComponent,
+    CurrentComponent,
+    ConfirmDialogComponent,
+    GroupComponent,
+    CategoryComponent,
+  ],
+  entryComponents: [ConfirmDialogComponent],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
