@@ -8,6 +8,7 @@ import { Expense } from "../models/expenses";
 import { ConfirmDialogComponent } from "../Components/Shared/confirm-dialog/confirm-dialog.component";
 import { ExpenseDeletedSnackBarComponent } from "../current/current.component";
 import { DailyComponent } from "../daily/daily.component";
+import { Category } from "../models/category";
 
 @Component({
   selector: "category-deleted-snack-bar",
@@ -28,7 +29,14 @@ export class CategoryDeletedSnackBarComponent {}
   styleUrls: ["./category.component.css"],
 })
 export class CategoryComponent implements OnInit {
-  displayedColumns: string[] = ["id", "name", "group_id"];
+  displayedColumns: string[] = [
+    "id",
+    "name",
+    "group_id",
+    "group",
+    "enabled",
+    "action",
+  ];
   dataSource: any;
 
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
@@ -44,14 +52,14 @@ export class CategoryComponent implements OnInit {
   }
 
   loadCategory() {
-    this.apiService.getCategory().subscribe((expenses: any) => {
-      console.log(expenses);
-      this.dataSource = new MatTableDataSource<Expense>(expenses.data);
+    this.apiService.getCategory().subscribe((category: any) => {
+      console.log(category);
+      this.dataSource = new MatTableDataSource<Category>(category.data);
       this.dataSource.paginator = this.paginator;
     });
   }
 
-  deleteExpense(expenseId: number) {
+  deleteCategory(categoryId: number) {
     // let's call our modal window
     const dialogRef = this.dialog.open(ConfirmDialogComponent, {
       maxWidth: "800px",
@@ -66,9 +74,9 @@ export class CategoryComponent implements OnInit {
       // if user pressed yes dialogResult will be true,
       // if he pressed no - it will be false
       if (dialogResult) {
-        this.apiService.deleteExpense(expenseId).subscribe(
+        this.apiService.deleteCategory(categoryId).subscribe(
           (res) => {
-            this._snackBar.openFromComponent(ExpenseDeletedSnackBarComponent, {
+            this._snackBar.openFromComponent(CategoryDeletedSnackBarComponent, {
               duration: 3000,
             });
             this.loadCategory();
@@ -76,7 +84,7 @@ export class CategoryComponent implements OnInit {
           (error) => {
             console.log("error:");
             console.log(error);
-            alert("expense delete failed.");
+            alert("Category delete failed.");
           },
           () => {
             // 'onCompleted' callback.

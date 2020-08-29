@@ -15,59 +15,35 @@
             <td mat-cell *matCellDef="let element"> {{element.id}} </td>
         </ng-container>
 
-        <!-- Expense Column -->
-        <ng-container matColumnDef="expense_text">
-            <th mat-header-cell *matHeaderCellDef> Expense </th>
-            <td mat-cell *matCellDef="let element"> {{element.expense_text}} </td>
-        </ng-container>
-
         <!-- Category Column -->
-        <ng-container matColumnDef="expense_category">
-            <th mat-header-cell *matHeaderCellDef> CategoryId </th>
-            <td mat-cell *matCellDef="let element"> {{element.expense_category}} </td>
-        </ng-container>
-
-        <!-- Category Column -->
-        <ng-container matColumnDef="expense_category_name">
+        <ng-container matColumnDef="name">
             <th mat-header-cell *matHeaderCellDef> Category </th>
-            <td mat-cell *matCellDef="let element"> {{element.expense_category_name}} </td>
+            <td mat-cell *matCellDef="let element"> {{element.name}} </td>
         </ng-container>
 
-        <!-- Category Column -->
-        <ng-container matColumnDef="expense_group">
+        <!-- GroupId Column -->
+        <ng-container matColumnDef="group_id">
             <th mat-header-cell *matHeaderCellDef> GroupId </th>
-            <td mat-cell *matCellDef="let element"> {{element.expense_group}} </td>
+            <td mat-cell *matCellDef="let element"> {{element.group_id}} </td>
         </ng-container>
 
-        <!-- Category Column -->
-        <ng-container matColumnDef="expense_group_name">
+        <!-- Group Column -->
+        <ng-container matColumnDef="group">
             <th mat-header-cell *matHeaderCellDef> Group </th>
-            <td mat-cell *matCellDef="let element"> {{element.expense_group_name}} </td>
+            <td mat-cell *matCellDef="let element"> {{element.group}} </td>
         </ng-container>
 
-        <!-- Amount Column -->
-        <ng-container matColumnDef="amount">
-            <th mat-header-cell *matHeaderCellDef> Amount </th>
-            <td mat-cell *matCellDef="let element"> {{element.amount| currency:"&#8377;"}} </td>
-        </ng-container>
-
-        <!-- Comment Column -->
-        <ng-container matColumnDef="expense_comment">
-            <th mat-header-cell *matHeaderCellDef> Comment </th>
-            <td mat-cell *matCellDef="let element"> {{element.expense_comment}} </td>
-        </ng-container>
-
-        <!-- Date Column -->
-        <ng-container matColumnDef="expense_date">
-            <th mat-header-cell *matHeaderCellDef> Date </th>
-            <td mat-cell *matCellDef="let element"> {{element.expense_date|date}} </td>
+        <!-- Enabled Column -->
+        <ng-container matColumnDef="enabled">
+            <th mat-header-cell *matHeaderCellDef> Enabled </th>
+            <td mat-cell *matCellDef="let element"> {{element.enabled}} </td>
         </ng-container>
 
         <!-- Action Column -->
         <ng-container matColumnDef="action">
             <th mat-header-cell *matHeaderCellDef> Action </th>
             <td mat-cell *matCellDef="let element" class="action-link">
-                <i class="material-icons" (click)="deleteExpense(element.id)">delete</i>
+                <i class="material-icons" (click)="deleteCategory(element.id)">delete</i>
             </td>
         </ng-container>
 

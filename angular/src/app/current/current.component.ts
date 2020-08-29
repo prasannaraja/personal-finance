@@ -56,6 +56,13 @@ export class CurrentComponent implements OnInit {
   }
 
   loadExpenseTable() {
+
+    let labels = [];
+    let f2 = function () { 
+      return true;
+    }
+    labels?.some(f2)
+
     this.apiService.getExpense().subscribe((expenses: any) => {
       console.log(expenses);
       this.dataSource = new MatTableDataSource<Expense>(expenses.data);

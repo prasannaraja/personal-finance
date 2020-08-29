@@ -8,6 +8,8 @@ import { Category } from "./models/category";
 export class ApiService {
   constructor(private http: HttpClient) {}
 
+  //api-expense
+
   getExpense(): Observable<Expense[]> {
     return this.http.get<Expense[]>("/api/expenses");
   }
@@ -19,8 +21,10 @@ export class ApiService {
   }
 
   deleteExpense(expenseId: number) {
-    return this.http.delete("/api/delete/" + expenseId);
+    return this.http.delete("/api/expense/delete/" + expenseId);
   }
+
+  //api-category
 
   getCategory(): Observable<Category[]> {
     return this.http.get<Category[]>("/api/categories");
@@ -32,7 +36,7 @@ export class ApiService {
     return this.http.post("/api/category/", body, { headers: headers });
   }
 
-  deleteCategory(expenseId: number) {
-    return this.http.delete("/api/delete-category/" + expenseId);
+  deleteCategory(categoryId: number) {
+    return this.http.delete("/api/category/delete/" + categoryId);
   }
 }

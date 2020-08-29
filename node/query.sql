@@ -1,0 +1,1 @@
+select  category.id as id, category.name as name, groups.name as 'group' from category left join groups on category.id = groups.id where category.isActive=1 and groups.isActive=1
