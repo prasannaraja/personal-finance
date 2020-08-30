@@ -1,0 +1,45 @@
+<div fxLayout="row" fxLayout.xs="column" fxLayoutWrap fxLayoutGap="0.5%" fxLayoutAlign="center"
+    class="example-container" *ngIf="!post; else forminfo" novalidate>
+
+    <form [formGroup]="formGroup" (ngSubmit)="onSubmit(formGroup.value)" class="form">
+
+        <!-- enter category title -->
+        <mat-form-field class="form-element" [style.width.px]=327>
+            <input matInput placeholder="Expense Information" formControlName="category">
+            <mat-error *ngIf="!formGroup.controls['category'].valid && formGroup.controls['category'].touched">
+                {{ getErrorCategory() }}
+            </mat-error>
+        </mat-form-field>
+        <br />
+        <!-- choose group field -->
+        <mat-form-field appearance="fill">
+            <mat-label>Choose group</mat-label>
+            <mat-select formControlName="group">
+                <mat-option *ngFor="let group of groups" [value]="group">
+                    {{group.name}}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+        <br />
+
+        <br />
+        <!--submit button-->
+        <div fxFlex="50%">
+            <div class="form-element">
+                <button mat-raised-button color="primary" type="submit" class="button"
+                    [disabled]="!formGroup.valid">Submit
+                    Form</button>
+            </div>
+        </div>
+
+    </form>
+</div>
+
+
+
+<!--form data : JSON format-->
+<ng-template #forminfo>
+    <div class="container">
+        {{ post | json }}
+    </div>
+</ng-template>

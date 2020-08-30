@@ -3,6 +3,7 @@ import { Expense } from "./models/expenses";
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
 import { Category } from "./models/category";
+import { Group } from "./models/Group";
 
 @Injectable({ providedIn: "root" })
 export class ApiService {
@@ -38,5 +39,11 @@ export class ApiService {
 
   deleteCategory(categoryId: number) {
     return this.http.delete("/api/category/delete/" + categoryId);
+  }
+
+  //api-group
+
+  getGroups(): Observable<Group[]> {
+    return this.http.get<Group[]>("/api/groups");
   }
 }

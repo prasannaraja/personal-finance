@@ -18,6 +18,7 @@ import { CurrentComponent } from "./current/current.component";
 import { ConfirmDialogComponent } from "./Components/Shared/confirm-dialog/confirm-dialog.component";
 import { GroupComponent } from "./group/group.component";
 import { CategoryComponent } from "./category/category.component";
+import { AddCatergoryComponent } from './add-catergory/add-catergory.component';
 
 @NgModule({
   declarations: [
@@ -29,6 +30,7 @@ import { CategoryComponent } from "./category/category.component";
     ConfirmDialogComponent,
     GroupComponent,
     CategoryComponent,
+    AddCatergoryComponent,
   ],
   entryComponents: [ConfirmDialogComponent],
   imports: [

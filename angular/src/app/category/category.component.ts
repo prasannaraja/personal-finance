@@ -9,6 +9,7 @@ import { ConfirmDialogComponent } from "../Components/Shared/confirm-dialog/conf
 import { ExpenseDeletedSnackBarComponent } from "../current/current.component";
 import { DailyComponent } from "../daily/daily.component";
 import { Category } from "../models/category";
+import { AddCatergoryComponent } from "../add-catergory/add-catergory.component";
 
 @Component({
   selector: "category-deleted-snack-bar",
@@ -53,7 +54,6 @@ export class CategoryComponent implements OnInit {
 
   loadCategory() {
     this.apiService.getCategory().subscribe((category: any) => {
-      console.log(category);
       this.dataSource = new MatTableDataSource<Category>(category.data);
       this.dataSource.paginator = this.paginator;
     });
@@ -96,7 +96,7 @@ export class CategoryComponent implements OnInit {
   }
 
   openDialog() {
-    const dialogRef = this.dialog.open(DailyComponent);
+    const dialogRef = this.dialog.open(AddCatergoryComponent);
 
     dialogRef.afterClosed().subscribe((result) => {
       console.log(`Dialog result: ${result}`);

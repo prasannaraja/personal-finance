@@ -10,7 +10,6 @@ import { ValidationService } from "../validation.service";
 import { startWith, map } from "rxjs/operators";
 import { MatAccordion } from "@angular/material/expansion";
 import { ApiService } from "../api.service";
-import { Expense } from "../models/expenses";
 import { MatPaginator } from "@angular/material/paginator";
 import { MatTableDataSource } from "@angular/material/table";
 import {
@@ -18,79 +17,66 @@ import {
   MAT_DIALOG_DATA,
   MatDialogRef,
 } from "@angular/material/dialog";
-
-interface ExpenseType {
-  value: string;
-  viewValue: string;
-}
+import { Expense } from "../models/expenses";
+import { Group } from "../models/Group";
+import { Category } from "../models/category";
 
 @Component({
-  selector: "app-daily",
-  templateUrl: "./daily.component.html",
-  styleUrls: ["./daily.component.css"],
+  selector: "app-add-catergory",
+  templateUrl: "./add-catergory.component.html",
+  styleUrls: ["./add-catergory.component.css"],
 })
-export class DailyComponent implements OnInit {
+export class AddCatergoryComponent implements OnInit {
   formGroup: FormGroup;
-  amountAlert: string = "This field is required";
+  groupAlert: string = "This field is required";
   commentAlert: string = "comment can be max 100 char";
   post: any = "";
   categories: any = "";
   removable: boolean = false;
   expenses: any = "";
+  groups: Group;
 
   constructor(
     private formBuilder: FormBuilder,
     private apiService: ApiService,
     @Inject(MAT_DIALOG_DATA) private data: any,
-    private dialogRef: MatDialogRef<DailyComponent>
+    private dialogRef: MatDialogRef<AddCatergoryComponent>
   ) {}
 
   ngOnInit() {
     this.createForm();
-    this.loadCategory();
+    this.loadGroups();
   }
 
-  loadCategory() {
-    this.apiService.getCategory().subscribe((categories: any) => {
-      this.categories = categories.data;
+  loadGroups() {
+    this.apiService.getGroups().subscribe((groups: any) => {
+      this.groups = groups.data;
     });
   }
 
   createForm() {
     this.formGroup = this.formBuilder.group({
-      expense: [null, [Validators.required, Validators.minLength(1)]],
-      amount: [null, Validators.required],
-      comment: [null, [Validators.required, Validators.maxLength(100)]],
-      category: "",
-      categoryId: "",
+      category: [null, [Validators.required, Validators.minLength(1)]],
+      group: [null, Validators.required],
     });
   }
 
-  getErrorExpense() {
-    return this.formGroup.get("expense").hasError("required")
+  getErrorCategory() {
+    return this.formGroup.get("category").hasError("required")
       ? "Field is required"
       : "";
-  }
-
-  changeSelected($event, category): void {
-    category.selected = $event.selected;
-    this.formGroup.controls["categoryId"].setValue(category.id);
   }
 
   onSubmit(data) {
     debugger;
     let ACTIVE = 1;
-    let exp = new Expense();
-    exp.expense_text = data.expense;
-    exp.amount = data.amount;
-    exp.expense_comment = data.comment;
-    exp.expense_category = data.categoryId;
-    exp.isActive = ACTIVE;
-    exp.expense_date = "2020-08-20 17:51:52";
-    exp.created_date = "2020-08-20 17:51:52";
-    exp.created_by = "system";
+    let category = new Category();
+    category.name = data.category;
+    category.group_id = data.group.id;
+    category.group = data.group.name;
+    category.enabled = ACTIVE;
 
-    this.apiService.addExpense(exp).subscribe(
+    this.apiService.addCategory(category).subscribe(
       (res) => {
         console.log("saved:");
         console.log(res);
