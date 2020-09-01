@@ -14,25 +14,8 @@ td {
   text-align: left;
 }
 
-.income-first-column {
-  width: 200px;
-  font-weight: bold;
-}
-
-.income-input {
-  width: 50px;
-}
-
-.income-input-header {
-  width: 58px;
-}
-
-.income-input-comment {
-  width: 258px;
-}
-
-.example-container {
-  height: 400px;
+.report-header-container {
+  height: 250px;
   overflow: auto;
 }
 
@@ -41,14 +24,36 @@ td {
   opacity: 1;
 }
 
-.example-sticky-toggle-group {
-  margin: 8px;
+.mat-column-dispField {
+  min-width: 400px;
+  padding: 0 8px;
+  font-size: 15px;
+  font-weight: bold;
+  text-align: center;
 }
 
-.mat-column-filler {
+/* .mat-column-JAN,
+.mat-column-FEB,
+.mat-column-MAR,
+.mat-column-APR,
+.mat-column-MAY,
+.mat-column-JUN,
+.mat-column-JUL,
+.mat-column-AUG,
+.mat-column-SEP,
+.mat-column-OCT,
+.mat-column-NOV,
+.mat-column-DEC {
   padding: 0 8px;
   font-size: 10px;
   text-align: center;
+} */
+
+.mat-card {
+  font-size: large;
+  font-weight: bold;
+  background-color: #2e86c1;
+  color: white;
 }
 
 .mat-header-cell,

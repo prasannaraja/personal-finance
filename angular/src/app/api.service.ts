@@ -4,6 +4,7 @@ import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
 import { Category } from "./models/category";
 import { Group } from "./models/Group";
+import { summaryTemplate } from "./monthly/monthly.component";
 
 @Injectable({ providedIn: "root" })
 export class ApiService {
@@ -39,6 +40,10 @@ export class ApiService {
 
   deleteCategory(categoryId: number) {
     return this.http.delete("/api/category/delete/" + categoryId);
+  }
+
+  getCategorySummary(): Observable<summaryTemplate[]> {
+    return this.http.get<summaryTemplate[]>("/api/categorySummary");
   }
 
   //api-group
