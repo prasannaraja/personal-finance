@@ -69,11 +69,14 @@ app.post("/api/expense/", (req, res, next) => {
     res.status(400).json({ error: errors.join(",") });
     return;
   }
+
   var data = {
     expense_text: req.body.expense_text,
     amount: req.body.amount,
     expense_comment: req.body.expense_comment,
     expense_category: req.body.expense_category,
+    month: new Date().getMonth(),
+    year: new Date().getFullYear(),
     isActive: 1,
     expense_date: new Date()
       .toISOString()
@@ -86,12 +89,14 @@ app.post("/api/expense/", (req, res, next) => {
     created_by: req.body.created_by,
   };
   var sql =
-    "INSERT INTO expenses (expense_text, amount, expense_comment,expense_category,isActive,expense_date,created_date,created_by) VALUES (?,?,?,?,?,?,?,?)";
+    "INSERT INTO expenses (expense_text, amount, expense_comment,expense_category,isActive,expense_date,created_date,created_by) VALUES (?,?,?,?,?,?,?,?,?,?)";
   var params = [
     data.expense_text,
     data.amount,
     data.expense_comment,
     data.expense_category,
+    data.month,
+    data.year,
     data.isActive,
     data.expense_date,
     data.created_date,
