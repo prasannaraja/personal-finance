@@ -3,11 +3,25 @@ import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { ApiService } from "../api.service";
 import { Expense } from "../models/expenses";
 import { MatDialogRef } from "@angular/material/dialog";
+import {
+  MAT_TOOLTIP_DEFAULT_OPTIONS,
+  MatTooltipDefaultOptions,
+} from "@angular/material/tooltip";
+
+/** Custom options the configure the tooltip's default show/hide delays. */
+export const myCustomTooltipDefaults: MatTooltipDefaultOptions = {
+  showDelay: 1000,
+  hideDelay: 1000,
+  touchendHideDelay: 1000,
+};
 
 @Component({
   selector: "app-daily",
   templateUrl: "./daily.component.html",
   styleUrls: ["./daily.component.css"],
+  providers: [
+    { provide: MAT_TOOLTIP_DEFAULT_OPTIONS, useValue: myCustomTooltipDefaults },
+  ],
 })
 export class DailyComponent implements OnInit {
   value: any;

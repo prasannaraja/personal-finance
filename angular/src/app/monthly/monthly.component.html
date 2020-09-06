@@ -1,15 +1,15 @@
 <div>
   <h1><b>Personal Budget Spreadsheet</b></h1>
 </div>
-
+<h4>Home Expense</h4>
 <div class="report-header-container mat-elevation-z8">
   <mat-table [dataSource]="dataSource" *ngFor="let table of tables">
-    <ng-container matColumnDef="dispField">
-      <mat-header-cell *matHeaderCellDef> </mat-header-cell>
-      <mat-cell *matCellDef="let element"><b>{{element.dispField}}</b> </mat-cell>
-      <mat-footer-cell *matFooterCellDef> </mat-footer-cell>
-    </ng-container>
 
+    <ng-container matColumnDef="Category">
+      <mat-header-cell *matHeaderCellDef> Category </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.Category}} </mat-cell>
+      <mat-footer-cell *matFooterCellDef> Category </mat-footer-cell>
+    </ng-container>
     <ng-container matColumnDef="JAN">
       <mat-header-cell *matHeaderCellDef> JAN </mat-header-cell>
       <mat-cell *matCellDef="let element"> {{element.JAN}} </mat-cell>
@@ -72,118 +72,6 @@
       <mat-header-cell *matHeaderCellDef> DEC </mat-header-cell>
       <mat-cell *matCellDef="let element"> {{element.DEC}} </mat-cell>
       <mat-footer-cell *matFooterCellDef> DEC</mat-footer-cell>
-    </ng-container>
-    <ng-container matColumnDef="Total">
-      <mat-header-cell *matHeaderCellDef> Total </mat-header-cell>
-      <mat-cell *matCellDef="let element"> {{element.Total}} </mat-cell>
-      <mat-footer-cell *matFooterCellDef> Total</mat-footer-cell>
-    </ng-container>
-    <ng-container matColumnDef="Avg">
-      <mat-header-cell *matHeaderCellDef> DEC </mat-header-cell>
-      <mat-cell *matCellDef="let element"> {{element.Avg}} </mat-cell>
-      <mat-footer-cell *matFooterCellDef> Avg</mat-footer-cell>
-    </ng-container>
-    <ng-container matColumnDef="filler">
-      <mat-header-cell *matHeaderCellDef> Filler header cell </mat-header-cell>
-      <mat-cell *matCellDef="let element"> Filler data cell </mat-cell>
-      <mat-footer-cell *matFooterCellDef> Filler footer cell </mat-footer-cell>
-    </ng-container>
-
-    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
-    <mat-footer-row *matFooterRowDef="displayedColumns;sticky:false"></mat-footer-row>
-  </mat-table>
-</div>
-<br />
-<div>
-  <mat-card>Income</mat-card>
-</div>
-<br />
-<div class="report-header-container mat-elevation-z8">
-  <mat-table [dataSource]="incomeGroupSource" *ngFor="let table of tables">
-    <ng-container matColumnDef="dispField">
-      <mat-header-cell *matHeaderCellDef> </mat-header-cell>
-      <mat-cell *matCellDef="let element"><b>{{element.dispField}}</b> </mat-cell>
-      <mat-footer-cell *matFooterCellDef> </mat-footer-cell>
-    </ng-container>
-
-    <ng-container matColumnDef="JAN">
-      <mat-header-cell *matHeaderCellDef> </mat-header-cell>
-      <mat-cell *matCellDef="let element"> {{element.JAN}} </mat-cell>
-      <mat-footer-cell *matFooterCellDef> </mat-footer-cell>
-    </ng-container>
-
-    <ng-container matColumnDef="FEB">
-      <mat-header-cell *matHeaderCellDef> </mat-header-cell>
-      <mat-cell *matCellDef="let element"> {{element.FEB}} </mat-cell>
-      <mat-footer-cell *matFooterCellDef> </mat-footer-cell>
-    </ng-container>
-
-    <ng-container matColumnDef="MAR">
-      <mat-header-cell *matHeaderCellDef> </mat-header-cell>
-      <mat-cell *matCellDef="let element"> {{element.MAR}} </mat-cell>
-      <mat-footer-cell *matFooterCellDef> </mat-footer-cell>
-    </ng-container>
-
-    <ng-container matColumnDef="APR">
-      <mat-header-cell *matHeaderCellDef> </mat-header-cell>
-      <mat-cell *matCellDef="let element"> {{element.APR}} </mat-cell>
-      <mat-footer-cell *matFooterCellDef> </mat-footer-cell>
-    </ng-container>
-    <ng-container matColumnDef="MAY">
-      <mat-header-cell *matHeaderCellDef> </mat-header-cell>
-      <mat-cell *matCellDef="let element"> {{element.MAY}} </mat-cell>
-      <mat-footer-cell *matFooterCellDef> </mat-footer-cell>
-    </ng-container>
-    <ng-container matColumnDef="JUN">
-      <mat-header-cell *matHeaderCellDef> </mat-header-cell>
-      <mat-cell *matCellDef="let element"> {{element.JUN}} </mat-cell>
-      <mat-footer-cell *matFooterCellDef> </mat-footer-cell>
-    </ng-container>
-    <ng-container matColumnDef="JUL">
-      <mat-header-cell *matHeaderCellDef> </mat-header-cell>
-      <mat-cell *matCellDef="let element"> {{element.JUL}} </mat-cell>
-      <mat-footer-cell *matFooterCellDef> </mat-footer-cell>
-    </ng-container>
-    <ng-container matColumnDef="AUG">
-      <mat-header-cell *matHeaderCellDef> </mat-header-cell>
-      <mat-cell *matCellDef="let element"> {{element.AUG}} </mat-cell>
-      <mat-footer-cell *matFooterCellDef> </mat-footer-cell>
-    </ng-container>
-    <ng-container matColumnDef="SEP">
-      <mat-header-cell *matHeaderCellDef> </mat-header-cell>
-      <mat-cell *matCellDef="let element"> {{element.SEP}} </mat-cell>
-      <mat-footer-cell *matFooterCellDef> </mat-footer-cell>
-    </ng-container>
-    <ng-container matColumnDef="OCT">
-      <mat-header-cell *matHeaderCellDef> </mat-header-cell>
-      <mat-cell *matCellDef="let element"> {{element.OCT}} </mat-cell>
-      <mat-footer-cell *matFooterCellDef> </mat-footer-cell>
-    </ng-container>
-    <ng-container matColumnDef="NOV">
-      <mat-header-cell *matHeaderCellDef> </mat-header-cell>
-      <mat-cell *matCellDef="let element"> {{element.NOV}} </mat-cell>
-      <mat-footer-cell *matFooterCellDef> </mat-footer-cell>
-    </ng-container>
-    <ng-container matColumnDef="DEC">
-      <mat-header-cell *matHeaderCellDef> </mat-header-cell>
-      <mat-cell *matCellDef="let element"> {{element.DEC}} </mat-cell>
-      <mat-footer-cell *matFooterCellDef> </mat-footer-cell>
-    </ng-container>
-    <ng-container matColumnDef="Total">
-      <mat-header-cell *matHeaderCellDef> Total </mat-header-cell>
-      <mat-cell *matCellDef="let element"> {{element.Total}} </mat-cell>
-      <mat-footer-cell *matFooterCellDef> Total</mat-footer-cell>
-    </ng-container>
-    <ng-container matColumnDef="Avg">
-      <mat-header-cell *matHeaderCellDef> DEC </mat-header-cell>
-      <mat-cell *matCellDef="let element"> {{element.Avg}} </mat-cell>
-      <mat-footer-cell *matFooterCellDef> Avg</mat-footer-cell>
-    </ng-container>
-
-    <ng-container matColumnDef="filler">
-      <mat-header-cell *matHeaderCellDef> Filler header cell </mat-header-cell>
-      <mat-cell *matCellDef="let element"> Filler data cell </mat-cell>
-      <mat-footer-cell *matFooterCellDef> Filler footer cell </mat-footer-cell>
     </ng-container>
 
     <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>

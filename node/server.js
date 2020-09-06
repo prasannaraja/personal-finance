@@ -89,7 +89,7 @@ app.post("/api/expense/", (req, res, next) => {
     created_by: req.body.created_by,
   };
   var sql =
-    "INSERT INTO expenses (expense_text, amount, expense_comment,expense_category,isActive,month,year,expense_date,created_date,created_by) VALUES (?,?,?,?,?,?,?,?,?,?)";
+    "INSERT INTO expenses (expense_text, amount, expense_comment,expense_category,month,year,isActive,expense_date,created_date,created_by) VALUES (?,?,?,?,?,?,?,?,?,?)";
   var params = [
     data.expense_text,
     data.amount,
@@ -279,6 +279,22 @@ app.delete("/api/category/delete/:id", (req, res, next) => {
 
 app.get("/api/groups", (req, res, next) => {
   var sql = "select id,name from groups where isActive=1";
+  var params = [];
+  db.all(sql, params, (err, rows) => {
+    if (err) {
+      res.status(400).json({ error: err.message });
+      return;
+    }
+    res.json({
+      message: "success",
+      data: rows,
+    });
+  });
+});
+
+app.get("/api/monthlySummary/:id", (req, res, next) => {
+  var sql =
+    "SELECT e.id as transactionId,g.id as groupdId,g.name as [Group],c.id as categoryId,c.name as [Category],SUM(amount) FILTER (WHERE month =  1) JAN,SUM(amount) FILTER (WHERE month =  2) FEB,SUM(amount) FILTER (WHERE month =  3) MAR,SUM(amount) FILTER (WHERE month =  4) APR,SUM(amount) FILTER (WHERE month =  5) MAY,SUM(amount) FILTER (WHERE month =  6) JUN,SUM(amount) FILTER (WHERE month =  7) JUL,SUM(amount) FILTER (WHERE month =  8) AUG,SUM(amount) FILTER (WHERE month =  9) SEP,SUM(amount) FILTER (WHERE month =  10) OCT,SUM(amount) FILTER (WHERE month =  11) NOV,SUM(amount) FILTER (WHERE month =  12) DEC from groups g left join category c on g.id = c.group_id left join expenses e on e.expense_category = c.id where g.id = 3 group by g.name,c.name";
   var params = [];
   db.all(sql, params, (err, rows) => {
     if (err) {

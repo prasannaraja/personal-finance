@@ -4,7 +4,7 @@ import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
 import { Category } from "./models/category";
 import { Group } from "./models/Group";
-import { summaryTemplate } from "./monthly/monthly.component";
+import { MonthlySummary } from "./models/monthlySummary";
 
 @Injectable({ providedIn: "root" })
 export class ApiService {
@@ -42,13 +42,13 @@ export class ApiService {
     return this.http.delete("/api/category/delete/" + categoryId);
   }
 
-  getCategorySummary(): Observable<summaryTemplate[]> {
-    return this.http.get<summaryTemplate[]>("/api/categorySummary");
-  }
-
   //api-group
 
   getGroups(): Observable<Group[]> {
     return this.http.get<Group[]>("/api/groups");
+  }
+
+  getMonthlySummary(groupId: number): Observable<MonthlySummary[]> {
+    return this.http.get<MonthlySummary[]>("/api/monthlySummary/" + groupId);
   }
 }
