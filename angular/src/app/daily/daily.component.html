@@ -36,12 +36,11 @@
       <label style="color:gray">Choose expense category : </label>
     </div>
     <br />
-    <mat-chip-list #chipList [multiple]="true" [selectable]="true" formControlName="category">
+    <mat-chip-list formControlName="category">
       <mat-chip *ngFor="let category of categories" #chip="matChip"
         (click)="category.selected ? chip.deselect() : chip.selectViaInteraction()" [selected]="category.selected"
-        [selectable]="true" class="leadr-category-chip" (selectionChange)="changeSelected($event, category)">
+        (selectionChange)="changeSelected($event, category)" class="leadr-category-chip {{category.class}}">
         {{category.name}}
-        <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
       </mat-chip>
     </mat-chip-list>
     <br />

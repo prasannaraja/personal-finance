@@ -31,7 +31,7 @@ let db = new sqlite3.Database(DBSOURCE, (err) => {
         } else {
           // Table just created, creating some rows
           var insert =
-            "INSERT INTO expenses (expense_text, amount, expense_comment,expense_category,isActive,expense_date,created_date,created_by) VALUES (?,?,?,?,?,?,?,?)";
+            "INSERT INTO expenses (expense_text, amount, expense_comment,expense_category,month,year,isActive,expense_date,created_date,created_by) VALUES (?,?,?,?,?,?,?,?,?,?)";
           db.run(insert, [
             "Sample Item",
             502,
@@ -52,6 +52,7 @@ let db = new sqlite3.Database(DBSOURCE, (err) => {
       `CREATE TABLE groups (
             id INTEGER PRIMARY KEY,
             name text,
+            fname text,
             isActive int
             )`,
       (err) => {
@@ -59,18 +60,19 @@ let db = new sqlite3.Database(DBSOURCE, (err) => {
           // Table already created
         } else {
           // Table just created, creating some rows
-          var insert = "INSERT INTO groups (id,name,isActive) VALUES (?,?,?)";
-          db.run(insert, [1, "Income", 1]);
-          db.run(insert, [2, "Savings", 1]);
-          db.run(insert, [3, "Home Expenses", 1]);
-          db.run(insert, [4, "Transportation", 1]);
-          db.run(insert, [5, "Health", 1]);
-          db.run(insert, [6, "Charity/Gifts", 1]);
-          db.run(insert, [7, "Daily Living", 1]);
-          db.run(insert, [8, "Entertainment", 1]);
-          db.run(insert, [9, "Obligations", 1]);
-          db.run(insert, [10, "Subscriptions", 1]);
-          db.run(insert, [11, "Miscellaneous", 1]);
+          var insert =
+            "INSERT INTO groups (id,name,fname,isActive) VALUES (?,?,?,?)";
+          db.run(insert, [1, "Income", "Income", 1]);
+          db.run(insert, [2, "Savings", "Savings", 1]);
+          db.run(insert, [3, "Home Expenses", "Home-Expenses", 1]);
+          db.run(insert, [4, "Transportation", "Transportation", 1]);
+          db.run(insert, [5, "Health", "Health", 1]);
+          db.run(insert, [6, "Charity/Gifts", "Charity-Gifts", 1]);
+          db.run(insert, [7, "Daily Living", "Daily-Living", 1]);
+          db.run(insert, [8, "Entertainment", "Entertainment", 1]);
+          db.run(insert, [9, "Obligations", "Obligations", 1]);
+          db.run(insert, [10, "Subscriptions", "Subscriptions", 1]);
+          db.run(insert, [11, "Miscellaneous", "Miscellaneous", 1]);
         }
       }
     );

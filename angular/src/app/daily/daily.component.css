@@ -27,3 +27,46 @@ label {
 .example-container .mat-radio-button {
   margin: 0 12px;
 }
+
+/* .Income {
+  background-color: cadetblue;
+}
+
+.Savings {
+  background-color: blue;
+} */
+
+.Home-Expenses {
+  background-color: #af7ac5;
+}
+
+/* .Transportation {
+  background-color: hotpink;
+}
+
+.Health {
+  background-color: lightseagreen;
+}
+
+.Charity-Gifts {
+  background-color: maroon;
+} */
+
+.Daily-Living {
+  background-color: #f39c12;
+}
+/* 
+.Entertainment {
+  background-color: yellowgreen;
+}
+.Obligations {
+  background-color: salmon;
+}
+
+.Subscriptions {
+  background-color: violet;
+}
+
+.Miscellaneous {
+  background-color: red;
+} */

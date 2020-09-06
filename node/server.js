@@ -89,7 +89,7 @@ app.post("/api/expense/", (req, res, next) => {
     created_by: req.body.created_by,
   };
   var sql =
-    "INSERT INTO expenses (expense_text, amount, expense_comment,expense_category,isActive,expense_date,created_date,created_by) VALUES (?,?,?,?,?,?,?,?,?,?)";
+    "INSERT INTO expenses (expense_text, amount, expense_comment,expense_category,isActive,month,year,expense_date,created_date,created_by) VALUES (?,?,?,?,?,?,?,?,?,?)";
   var params = [
     data.expense_text,
     data.amount,
@@ -177,7 +177,7 @@ app.delete("/api/expense/delete/:id", (req, res, next) => {
 app.get("/api/categories", (req, res, next) => {
   //var sql = "select * from expenses";
   var sql =
-    "select  category.id as id, category.name as name, groups.name as 'group',groups.id as group_id ,category.isActive as 'enabled' from category left join groups on category.group_id = groups.id where category.isActive=1 and groups.isActive=1";
+    "select  category.id as id, category.name as name, groups.name as 'group',groups.fname as 'class',groups.id as group_id ,category.isActive as 'enabled' from category left join groups on category.group_id = groups.id where category.isActive=1 and groups.isActive=1";
   var params = [];
   db.all(sql, params, (err, rows) => {
     if (err) {

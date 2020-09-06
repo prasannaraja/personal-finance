@@ -1,28 +1,8 @@
-import { Component, OnInit, ViewChild, Inject } from "@angular/core";
-import {
-  FormBuilder,
-  FormGroup,
-  FormControl,
-  Validators,
-} from "@angular/forms";
-import { Observable } from "rxjs";
-import { ValidationService } from "../validation.service";
-import { startWith, map } from "rxjs/operators";
-import { MatAccordion } from "@angular/material/expansion";
+import { Component, OnInit } from "@angular/core";
+import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { ApiService } from "../api.service";
 import { Expense } from "../models/expenses";
-import { MatPaginator } from "@angular/material/paginator";
-import { MatTableDataSource } from "@angular/material/table";
-import {
-  MatDialog,
-  MAT_DIALOG_DATA,
-  MatDialogRef,
-} from "@angular/material/dialog";
-
-interface ExpenseType {
-  value: string;
-  viewValue: string;
-}
+import { MatDialogRef } from "@angular/material/dialog";
 
 @Component({
   selector: "app-daily",
@@ -30,6 +10,7 @@ interface ExpenseType {
   styleUrls: ["./daily.component.css"],
 })
 export class DailyComponent implements OnInit {
+  value: any;
   formGroup: FormGroup;
   amountAlert: string = "This field is required";
   commentAlert: string = "comment can be max 100 char";
@@ -41,7 +22,6 @@ export class DailyComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private apiService: ApiService,
-    @Inject(MAT_DIALOG_DATA) private data: any,
     private dialogRef: MatDialogRef<DailyComponent>
   ) {}
 
@@ -61,7 +41,7 @@ export class DailyComponent implements OnInit {
       expense: [null, [Validators.required, Validators.minLength(1)]],
       amount: [null, Validators.required],
       comment: [null, [Validators.required, Validators.maxLength(100)]],
-      category: "",
+      category: [null, Validators.required],
       categoryId: "",
     });
   }
@@ -73,6 +53,7 @@ export class DailyComponent implements OnInit {
   }
 
   changeSelected($event, category): void {
+    debugger;
     category.selected = $event.selected;
     this.formGroup.controls["categoryId"].setValue(category.id);
   }
