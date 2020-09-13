@@ -29,3 +29,7 @@ table {
   justify-content: center;
   width: 120px;
 }
+
+.txt-right {
+  text-align: right;
+}
