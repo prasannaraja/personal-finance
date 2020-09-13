@@ -30,18 +30,18 @@ export class ExpenseDeletedSnackBarComponent {}
 })
 export class CurrentComponent implements OnInit {
   displayedColumns: string[] = [
-    "id",
+    "expense_date",
     "expense_text",
     "amount",
     "expense_group_name",
     "expense_category_name",
     "expense_comment",
-    "expense_date",
     "expense_category",
     "expense_group",
     "action",
   ];
   dataSource: any;
+  currentMonthTotal: number;
 
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
 
@@ -53,6 +53,14 @@ export class CurrentComponent implements OnInit {
 
   ngOnInit(): void {
     this.loadExpenseTable();
+    this.getCurrentMonthTotal();
+  }
+
+  getCurrentMonthTotal() {
+    this.apiService.getCurrentMonthTotal().subscribe((total: any) => {
+      this.currentMonthTotal = total.data[0].cTotal;
+      console.log(total);
+    });
   }
 
   loadExpenseTable() {

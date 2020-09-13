@@ -51,4 +51,16 @@ export class ApiService {
   getMonthlySummary(groupId: number): Observable<MonthlySummary[]> {
     return this.http.get<MonthlySummary[]>("/api/monthlySummary/" + groupId);
   }
+
+  getSplitTotalExpenses(): Observable<MonthlySummary[]> {
+    return this.http.get<MonthlySummary[]>("/api/SplitTotalSummary");
+  }
+
+  getTotalExpenses(): Observable<MonthlySummary[]> {
+    return this.http.get<MonthlySummary[]>("/api/TotalSummary");
+  }
+
+  getCurrentMonthTotal(): Observable<any> {
+    return this.http.get<any>("/api/currentMonthTotal");
+  }
 }

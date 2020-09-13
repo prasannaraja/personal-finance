@@ -1,49 +1,97 @@
-.report-header-container {
-  height: 100%;
-  overflow: auto;
+#iseqchart {
+  border: 1px solid #000;
+  border-collapse: collapse;
+  font-family: Arial, Sans-Serif;
+  font-size: 12px;
+  text-align: right;
 }
 
-.mat-table-sticky {
-  background: #59abfd;
-  opacity: 1;
+#iseqchart th {
+  border: 1px solid #333;
+  padding: 3px 6px;
 }
 
-.mat-column-JAN,
-.mat-column-FEB,
-.mat-column-MAR,
-.mat-column-APR,
-.mat-column-MAY,
-.mat-column-JUN,
-.mat-column-JUL,
-.mat-column-AUG,
-.mat-column-SEP,
-.mat-column-OCT,
-.mat-column-NOV,
-.mat-column-DEC {
-  padding: 0 8px;
-
-  text-align: center;
+#iseqchart td {
+  border: 1px solid #999;
+  padding: 3px 6px;
 }
 
-.mat-card {
-  font-size: large;
-  font-weight: bold;
-  background-color: #2e86c1;
-  color: white;
+.neg {
+  color: red;
 }
 
-.mat-header-cell,
-.mat-footer-cell,
-.mat-cell {
-  min-width: 80px;
-  box-sizing: border-box;
-  border-style: solid;
-  border-width: thin;
-  border-color: antiquewhite;
+.pos {
+  color: green;
 }
 
-.mat-header-row,
-.mat-footer-row,
-.mat-row {
-  min-width: 1920px;
+tr td:nth-child(1) {
+  width: 150px;
+}
+
+tr td:not(:first-child) {
+  width: 66px;
+}
+
+@media only screen and (max-width: 768px) {
+  #turnover,
+  tr td:nth-child(9) {
+    display: none;
+    visibility: hidden;
+  }
+}
+
+@media only screen and (max-width: 420px) {
+  #changepercent,
+  tr td:nth-child(4) {
+    display: none;
+    visibility: hidden;
+  }
+  #yhigh,
+  tr td:nth-child(5) {
+    display: none;
+    visibility: hidden;
+  }
+  #ylow,
+  tr td:nth-child(6) {
+    display: none;
+    visibility: hidden;
+  }
+  #turnover,
+  tr td:nth-child(9) {
+    display: none;
+    visibility: hidden;
+  }
+}
+
+@media only screen and (max-width: 320px) {
+  #changepercent,
+  tr td:nth-child(4) {
+    display: none;
+    visibility: hidden;
+  }
+  #yhigh,
+  tr td:nth-child(5) {
+    display: none;
+    visibility: hidden;
+  }
+  #ylow,
+  tr td:nth-child(6) {
+    display: none;
+    visibility: hidden;
+  }
+  #dhigh,
+  tr td:nth-child(7) {
+    display: none;
+    visibility: hidden;
+  }
+  #dlow,
+  tr td:nth-child(8) {
+    display: none;
+    visibility: hidden;
+  }
+  #turnover,
+  tr td:nth-child(9) {
+    display: none;
+    visibility: hidden;
+  }
 }

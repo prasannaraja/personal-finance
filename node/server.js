@@ -24,7 +24,7 @@ app.get("/", (req, res, next) => {
 app.get("/api/expenses", (req, res, next) => {
   //var sql = "select * from expenses";
   var sql =
-    "select expenses.id as id,expenses.expense_text as expense_text,expenses.amount as amount,expenses.expense_comment as expense_comment,groups.name as expense_group_name,category.name as expense_category_name,groups.id as expense_group,expenses.expense_category as expense_category,expenses.expense_date as expense_date	from expenses join category on expenses.expense_category = category.id join groups on groups.id = category.group_id";
+    "select expenses.id as id,expenses.expense_text as expense_text,expenses.amount as amount,expenses.expense_comment as expense_comment,groups.name as expense_group_name,category.name as expense_category_name,groups.id as expense_group,expenses.expense_category as expense_category,expenses.expense_date as expense_date	from expenses join category on expenses.expense_category = category.id join groups on groups.id = category.group_id order by expenses.id desc";
   var params = [];
   db.all(sql, params, (err, rows) => {
     if (err) {
@@ -75,7 +75,7 @@ app.post("/api/expense/", (req, res, next) => {
     amount: req.body.amount,
     expense_comment: req.body.expense_comment,
     expense_category: req.body.expense_category,
-    month: new Date().getMonth(),
+    month: new Date().getMonth() + 1,
     year: new Date().getFullYear(),
     isActive: 1,
     expense_date: new Date()
@@ -294,7 +294,71 @@ app.get("/api/groups", (req, res, next) => {
 
 app.get("/api/monthlySummary/:id", (req, res, next) => {
   var sql =
-    "SELECT e.id as transactionId,g.id as groupdId,g.name as [Group],c.id as categoryId,c.name as [Category],SUM(amount) FILTER (WHERE month =  1) JAN,SUM(amount) FILTER (WHERE month =  2) FEB,SUM(amount) FILTER (WHERE month =  3) MAR,SUM(amount) FILTER (WHERE month =  4) APR,SUM(amount) FILTER (WHERE month =  5) MAY,SUM(amount) FILTER (WHERE month =  6) JUN,SUM(amount) FILTER (WHERE month =  7) JUL,SUM(amount) FILTER (WHERE month =  8) AUG,SUM(amount) FILTER (WHERE month =  9) SEP,SUM(amount) FILTER (WHERE month =  10) OCT,SUM(amount) FILTER (WHERE month =  11) NOV,SUM(amount) FILTER (WHERE month =  12) DEC from groups g left join category c on g.id = c.group_id left join expenses e on e.expense_category = c.id where g.id = 3 group by g.name,c.name";
+    "SELECT e.id as transactionId,g.id as groupdId,g.name as [Group],c.id as categoryId,c.name as [Category],SUM(amount) FILTER (WHERE month =  1) JAN,SUM(amount) FILTER (WHERE month =  2) FEB,SUM(amount) FILTER (WHERE month =  3) MAR,SUM(amount) FILTER (WHERE month =  4) APR,SUM(amount) FILTER (WHERE month =  5) MAY,SUM(amount) FILTER (WHERE month =  6) JUN,SUM(amount) FILTER (WHERE month =  7) JUL,SUM(amount) FILTER (WHERE month =  8) AUG,SUM(amount) FILTER (WHERE month =  9) SEP,SUM(amount) FILTER (WHERE month =  10) OCT,SUM(amount) FILTER (WHERE month =  11) NOV,SUM(amount) FILTER (WHERE month =  12) DEC from groups g left join category c on g.id = c.group_id left join expenses e on e.expense_category = c.id where g.id = ? group by g.name,c.name";
+  var params = [];
+  db.all(sql, req.params.id, (err, rows) => {
+    if (err) {
+      res.status(400).json({ error: err.message });
+      return;
+    }
+    res.json({
+      message: "success",
+      data: rows,
+    });
+  });
+});
+
+app.get("/api/GroupSummary", (req, res, next) => {
+  var sql =
+    "SELECT g.id as groupdId,g.name as [Group],SUM(amount) FILTER (WHERE month =  1) JAN, SUM(amount) FILTER (WHERE month =  2) FEB, SUM(amount) FILTER (WHERE month =  3) MAR, SUM(amount) FILTER (WHERE month =  4) APR, SUM(amount) FILTER (WHERE month =  5) MAY, SUM(amount) FILTER (WHERE month =  6) JUN, SUM(amount) FILTER (WHERE month =  7) JUL, SUM(amount) FILTER (WHERE month =  8) AUG, SUM(amount) FILTER (WHERE month =  9) SEP, SUM(amount) FILTER (WHERE month =  10) OCT, SUM(amount) FILTER (WHERE month =  11) NOV, SUM(amount) FILTER (WHERE month =  12) DEC from groups g left join category c on g.id = c.group_id left join expenses e on e.expense_category = c.id where g.id not in (1,2) group by g.name order by g.id";
+  var params = [];
+  db.all(sql, params, (err, rows) => {
+    if (err) {
+      res.status(400).json({ error: err.message });
+      return;
+    }
+    res.json({
+      message: "success",
+      data: rows,
+    });
+  });
+});
+
+app.get("/api/TotalSummary", (req, res, next) => {
+  var sql =
+    "SELECT SUM(amount) FILTER (WHERE month =  1) JAN,	SUM(amount) FILTER (WHERE month =  2) FEB, SUM(amount) FILTER (WHERE month =  3) MAR,	SUM(amount) FILTER (WHERE month =  4) APR,	SUM(amount) FILTER (WHERE month =  5) MAY,	SUM(amount) FILTER (WHERE month =  6) JUN,	SUM(amount) FILTER (WHERE month =  7) JUL,	SUM(amount) FILTER (WHERE month =  8) AUG,	SUM(amount) FILTER (WHERE month =  9) SEP,	SUM(amount) FILTER (WHERE month =  10) OCT,	SUM(amount) FILTER (WHERE month =  11) NOV,	SUM(amount) FILTER (WHERE month =  12) DEC from groups g left join category c on g.id = c.group_id left join expenses e on e.expense_category = c.id where g.id not in (1,2)";
+  var params = [];
+  db.all(sql, params, (err, rows) => {
+    if (err) {
+      res.status(400).json({ error: err.message });
+      return;
+    }
+    res.json({
+      message: "success",
+      data: rows,
+    });
+  });
+});
+
+app.get("/api/SplitTotalSummary", (req, res, next) => {
+  var sql =
+    "SELECT g.id as groupdId,g.name as [Group],SUM(amount) FILTER (WHERE month =  1) JAN,SUM(amount) FILTER (WHERE month =  2) FEB,SUM(amount) FILTER (WHERE month =  3) MAR,SUM(amount) FILTER (WHERE month =  4) APR,SUM(amount) FILTER (WHERE month =  5) MAY,SUM(amount) FILTER (WHERE month =  6) JUN,SUM(amount) FILTER (WHERE month =  7) JUL,SUM(amount) FILTER (WHERE month =  8) AUG,SUM(amount) FILTER (WHERE month =  9) SEP,SUM(amount) FILTER (WHERE month =  10) OCT,SUM(amount) FILTER (WHERE month =  11) NOV,SUM(amount) FILTER (WHERE month =  12) DEC from groups g left join category c on g.id = c.group_id left join expenses e on e.expense_category = c.id where g.id not in (1,2) group by g.name order by g.id";
+  var params = [];
+  db.all(sql, params, (err, rows) => {
+    if (err) {
+      res.status(400).json({ error: err.message });
+      return;
+    }
+    res.json({
+      message: "success",
+      data: rows,
+    });
+  });
+});
+
+app.get("/api/currentMonthTotal", (req, res, next) => {
+  var sql =
+    "SELECT SUM(amount) FILTER (WHERE month =  strftime('%m','now')) [cTotal] from groups g left join category c on g.id = c.group_id left join expenses e on e.expense_category = c.id where g.id not in (1,2)";
   var params = [];
   db.all(sql, params, (err, rows) => {
     if (err) {

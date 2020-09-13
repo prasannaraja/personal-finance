@@ -1,80 +1,180 @@
 <div>
-  <h1><b>Personal Budget Spreadsheet</b></h1>
+  <h1><b>Personal Budget Report</b></h1>
 </div>
+<h4>Total Expense</h4>
+<table id="iseqchart">
+  <tr>
+    <th *ngFor="let column of ['Total','JAN','FEB','MAR','APR','MAY','JUN','JUL','AUG','SEP','OCT','NOV','DEC']">
+      {{column}}
+    </th>
+  </tr>
+  <tr *ngFor="let row of TotalExpenses">
+    <td
+      *ngFor="let column of ['Total','JAN','FEB','MAR','APR','MAY','JUN','JUL','AUG','SEP','OCT','NOV','DEC'];let i = index">
+      <span *ngIf="i<1">{{row[column]}}</span>
+      <span *ngIf="i>0 && row[column]!=='-'">{{row[column]|currency:'&#8377;'}}</span>
+      <span *ngIf="i>0 && row[column]==='-'">{{row[column]}}</span>
+    </td>
+  </tr>
+</table>
+<br />
+<h4>Split Total Expense</h4>
+<table id="iseqchart">
+  <tr>
+    <th *ngFor="let column of ['Group','JAN','FEB','MAR','APR','MAY','JUN','JUL','AUG','SEP','OCT','NOV','DEC']">
+      {{column}}
+    </th>
+  </tr>
+  <tr *ngFor="let row of SplitTotalExpenses">
+    <td
+      *ngFor="let column of ['Group','JAN','FEB','MAR','APR','MAY','JUN','JUL','AUG','SEP','OCT','NOV','DEC'];let i = index">
+      <span *ngIf="i<1">{{row[column]}}</span>
+      <span *ngIf="i>0 && row[column]!=='-'">{{row[column]|currency:'&#8377;'}}</span>
+      <span *ngIf="i>0 && row[column]==='-'">{{row[column]}}</span>
+    </td>
+  </tr>
+</table>
+<br />
 <h4>Home Expense</h4>
-<div class="report-header-container mat-elevation-z8">
-  <mat-table [dataSource]="dataSource" *ngFor="let table of tables">
-
-    <ng-container matColumnDef="Category">
-      <mat-header-cell *matHeaderCellDef> Category </mat-header-cell>
-      <mat-cell *matCellDef="let element"> {{element.Category}} </mat-cell>
-      <mat-footer-cell *matFooterCellDef> Category </mat-footer-cell>
-    </ng-container>
-    <ng-container matColumnDef="JAN">
-      <mat-header-cell *matHeaderCellDef> JAN </mat-header-cell>
-      <mat-cell *matCellDef="let element"> {{element.JAN}} </mat-cell>
-      <mat-footer-cell *matFooterCellDef> JAN </mat-footer-cell>
-    </ng-container>
-
-    <ng-container matColumnDef="FEB">
-      <mat-header-cell *matHeaderCellDef> FEB </mat-header-cell>
-      <mat-cell *matCellDef="let element"> {{element.FEB}} </mat-cell>
-      <mat-footer-cell *matFooterCellDef> FEB </mat-footer-cell>
-    </ng-container>
-
-    <ng-container matColumnDef="MAR">
-      <mat-header-cell *matHeaderCellDef> MAR </mat-header-cell>
-      <mat-cell *matCellDef="let element"> {{element.MAR}} </mat-cell>
-      <mat-footer-cell *matFooterCellDef> MAR </mat-footer-cell>
-    </ng-container>
-
-    <ng-container matColumnDef="APR">
-      <mat-header-cell *matHeaderCellDef> APR </mat-header-cell>
-      <mat-cell *matCellDef="let element"> {{element.APR}} </mat-cell>
-      <mat-footer-cell *matFooterCellDef> APR </mat-footer-cell>
-    </ng-container>
-    <ng-container matColumnDef="MAY">
-      <mat-header-cell *matHeaderCellDef> MAY </mat-header-cell>
-      <mat-cell *matCellDef="let element"> {{element.MAY}} </mat-cell>
-      <mat-footer-cell *matFooterCellDef> MAY </mat-footer-cell>
-    </ng-container>
-    <ng-container matColumnDef="JUN">
-      <mat-header-cell *matHeaderCellDef> JUN </mat-header-cell>
-      <mat-cell *matCellDef="let element"> {{element.JUN}} </mat-cell>
-      <mat-footer-cell *matFooterCellDef> JUN</mat-footer-cell>
-    </ng-container>
-    <ng-container matColumnDef="JUL">
-      <mat-header-cell *matHeaderCellDef> JUL </mat-header-cell>
-      <mat-cell *matCellDef="let element"> {{element.JUL}} </mat-cell>
-      <mat-footer-cell *matFooterCellDef> JUL</mat-footer-cell>
-    </ng-container>
-    <ng-container matColumnDef="AUG">
-      <mat-header-cell *matHeaderCellDef> AUG </mat-header-cell>
-      <mat-cell *matCellDef="let element"> {{element.AUG}} </mat-cell>
-      <mat-footer-cell *matFooterCellDef> AUG</mat-footer-cell>
-    </ng-container>
-    <ng-container matColumnDef="SEP">
-      <mat-header-cell *matHeaderCellDef> SEP </mat-header-cell>
-      <mat-cell *matCellDef="let element"> {{element.SEP}} </mat-cell>
-      <mat-footer-cell *matFooterCellDef> SEP</mat-footer-cell>
-    </ng-container>
-    <ng-container matColumnDef="OCT">
-      <mat-header-cell *matHeaderCellDef> OCT </mat-header-cell>
-      <mat-cell *matCellDef="let element"> {{element.OCT}} </mat-cell>
-      <mat-footer-cell *matFooterCellDef> OCT</mat-footer-cell>
-    </ng-container>
-    <ng-container matColumnDef="NOV">
-      <mat-header-cell *matHeaderCellDef> NOV </mat-header-cell>
-      <mat-cell *matCellDef="let element"> {{element.NOV}} </mat-cell>
-      <mat-footer-cell *matFooterCellDef> NOV</mat-footer-cell>
-    </ng-container>
-    <ng-container matColumnDef="DEC">
-      <mat-header-cell *matHeaderCellDef> DEC </mat-header-cell>
-      <mat-cell *matCellDef="let element"> {{element.DEC}} </mat-cell>
-      <mat-footer-cell *matFooterCellDef> DEC</mat-footer-cell>
-    </ng-container>
-
-    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
-    <mat-footer-row *matFooterRowDef="displayedColumns;sticky:false"></mat-footer-row>
-  </mat-table>
-</div>
+<table id="iseqchart">
+  <tr>
+    <th *ngFor="let column of displayedColumns">
+      {{column}}
+    </th>
+  </tr>
+  <tr *ngFor="let row of homeExpenses">
+    <td *ngFor="let column of displayedColumns;let i = index">
+      <span *ngIf="i<1">{{row[column]}}</span>
+      <span *ngIf="i>0 && row[column]!=='-'">{{row[column]|currency:'&#8377;'}}</span>
+      <span *ngIf="i>0 && row[column]==='-'">{{row[column]}}</span>
+    </td>
+  </tr>
+</table>
+<br />
+<h4>Transport Expense</h4>
+<table id="iseqchart">
+  <tr>
+    <th *ngFor="let column of displayedColumns">
+      {{column}}
+    </th>
+  </tr>
+  <tr *ngFor="let row of transportation">
+    <td *ngFor="let column of displayedColumns;let i = index">
+      <span *ngIf="i<1">{{row[column]}}</span>
+      <span *ngIf="i>0 && row[column]!=='-'">{{row[column]|currency:'&#8377;'}}</span>
+      <span *ngIf="i>0 && row[column]==='-'">{{row[column]}}</span>
+    </td>
+  </tr>
+</table>
+<br />
+<h4>Health Expense</h4>
+<table id="iseqchart">
+  <tr>
+    <th *ngFor="let column of displayedColumns">
+      {{column}}
+    </th>
+  </tr>
+  <tr *ngFor="let row of health">
+    <td *ngFor="let column of displayedColumns;let i = index">
+      <span *ngIf="i<1">{{row[column]}}</span>
+      <span *ngIf="i>0 && row[column]!=='-'">{{row[column]|currency:'&#8377;'}}</span>
+      <span *ngIf="i>0 && row[column]==='-'">{{row[column]}}</span>
+    </td>
+  </tr>
+</table>
+<br />
+<h4>Daily Living</h4>
+<table id="iseqchart">
+  <tr>
+    <th *ngFor="let column of displayedColumns">
+      {{column}}
+    </th>
+  </tr>
+  <tr *ngFor="let row of dailyLiving">
+    <td *ngFor="let column of displayedColumns;let i = index">
+      <span *ngIf="i<1">{{row[column]}}</span>
+      <span *ngIf="i>0 && row[column]!=='-'">{{row[column]|currency:'&#8377;'}}</span>
+      <span *ngIf="i>0 && row[column]==='-'">{{row[column]}}</span>
+    </td>
+  </tr>
+</table>
+<br />
+<h4>Entertainment</h4>
+<table id="iseqchart">
+  <tr>
+    <th *ngFor="let column of displayedColumns">
+      {{column}}
+    </th>
+  </tr>
+  <tr *ngFor="let row of entertainment">
+    <td *ngFor="let column of displayedColumns;let i = index">
+      <span *ngIf="i<1">{{row[column]}}</span>
+      <span *ngIf="i>0 && row[column]!=='-'">{{row[column]|currency:'&#8377;'}}</span>
+      <span *ngIf="i>0 && row[column]==='-'">{{row[column]}}</span>
+    </td>
+  </tr>
+</table>
+<br />
+<h4>Obligation</h4>
+<table id="iseqchart">
+  <tr>
+    <th *ngFor="let column of displayedColumns">
+      {{column}}
+    </th>
+  </tr>
+  <tr *ngFor="let row of obligation">
+    <td *ngFor="let column of displayedColumns;let i = index">
+      <span *ngIf="i<1">{{row[column]}}</span>
+      <span *ngIf="i>0 && row[column]!=='-'">{{row[column]|currency:'&#8377;'}}</span>
+      <span *ngIf="i>0 && row[column]==='-'">{{row[column]}}</span>
+    </td>
+  </tr>
+</table>
+<br />
+<h4>Subscription</h4>
+<table id="iseqchart">
+  <tr>
+    <th *ngFor="let column of displayedColumns">
+      {{column}}
+    </th>
+  </tr>
+  <tr *ngFor="let row of subscription">
+    <td *ngFor="let column of displayedColumns;let i = index">
+      <span *ngIf="i<1">{{row[column]}}</span>
+      <span *ngIf="i>0 && row[column]!=='-'">{{row[column]|currency:'&#8377;'}}</span>
+      <span *ngIf="i>0 && row[column]==='-'">{{row[column]}}</span>
+    </td>
+  </tr>
+</table>
+<br />
+<h4>Misc</h4>
+<table id="iseqchart">
+  <tr>
+    <th *ngFor="let column of displayedColumns">
+      {{column}}
+    </th>
+  </tr>
+  <tr *ngFor="let row of misc">
+    <td *ngFor="let column of displayedColumns;let i = index">
+      <span *ngIf="i<1">{{row[column]}}</span>
+      <span *ngIf="i>0 && row[column]!=='-'">{{row[column]|currency:'&#8377;'}}</span>
+      <span *ngIf="i>0 && row[column]==='-'">{{row[column]}}</span>
+    </td>
+  </tr>
+</table>
+<br />
+<h4>Charity Expense</h4>
+<table id="iseqchart">
+  <tr>
+    <th *ngFor="let column of displayedColumns">
+      {{column}}
+    </th>
+  </tr>
+  <tr *ngFor="let row of charity">
+    <td *ngFor="let column of displayedColumns;let i = index">
+      <span *ngIf="i<1">{{row[column]}}</span>
+      <span *ngIf="i>0 && row[column]!=='-'">{{row[column]|currency:'&#8377;'}}</span>
+      <span *ngIf="i>0 && row[column]==='-'">{{row[column]}}</span>
+    </td>
+  </tr>
+</table>

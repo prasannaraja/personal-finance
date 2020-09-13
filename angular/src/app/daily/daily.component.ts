@@ -32,6 +32,8 @@ export class DailyComponent implements OnInit {
   categories: any = "";
   removable: boolean = false;
   expenses: any = "";
+  lastClick = 0;
+  delay = 20;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -67,13 +69,15 @@ export class DailyComponent implements OnInit {
   }
 
   changeSelected($event, category): void {
-    debugger;
     category.selected = $event.selected;
+    if (this.lastClick >= Date.now() - this.delay) return;
+    this.lastClick = Date.now();
+    this.formGroup.controls["expense"].setValue(category.name);
+    this.formGroup.controls["comment"].setValue(category.name);
     this.formGroup.controls["categoryId"].setValue(category.id);
   }
 
   onSubmit(data) {
-    debugger;
     let ACTIVE = 1;
     let exp = new Expense();
     exp.expense_text = data.expense;
@@ -81,8 +85,8 @@ export class DailyComponent implements OnInit {
     exp.expense_comment = data.comment;
     exp.expense_category = data.categoryId;
     exp.isActive = ACTIVE;
-    exp.expense_date = "2020-08-20 17:51:52";
-    exp.created_date = "2020-08-20 17:51:52";
+    //exp.expense_date = "2020-08-20 17:51:52";
+    //exp.created_date = "2020-08-20 17:51:52";
     exp.created_by = "system";
 
     this.apiService.addExpense(exp).subscribe(
