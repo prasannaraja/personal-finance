@@ -35,10 +35,25 @@ export class AppComponent {
       },
       {
         label: "Edit",
-        icon: "pi pi-fw pi-pencil",
         items: [
           { label: "Delete", icon: "pi pi-fw pi-trash" },
           { label: "Refresh", icon: "pi pi-fw pi-refresh" },
+        ],
+      },
+      {
+        label: "Monthly",
+        icon: "pi pi-file-o",
+        items: [
+          {
+            label: "Delete",
+            icon: "pi pi-fw pi-trash",
+            routerLink: "/monthly-expense",
+          },
+          {
+            label: "Refresh",
+            icon: "pi pi-fw pi-refresh",
+            routerLink: "/monthly-expense",
+          },
         ],
       },
     ];
