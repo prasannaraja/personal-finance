@@ -19,6 +19,7 @@ import { GroupComponent } from "./group/group.component";
 import { CategoryComponent } from "./category/category.component";
 import { AddCatergoryComponent } from "./add-catergory/add-catergory.component";
 import { MenubarModule } from "primeng/menubar";
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 
 @NgModule({
   declarations: [
@@ -31,6 +32,7 @@ import { MenubarModule } from "primeng/menubar";
     GroupComponent,
     CategoryComponent,
     AddCatergoryComponent,
+    PageNotFoundComponent,
   ],
   entryComponents: [ConfirmDialogComponent],
   imports: [

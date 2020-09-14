@@ -29,8 +29,6 @@ export class AppComponent {
               { label: "Rule" },
             ],
           },
-          { label: "Open" },
-          { label: "Quit" },
         ],
       },
       {
@@ -41,17 +39,23 @@ export class AppComponent {
         ],
       },
       {
+        label: "Current Month",
+        icon: "pi pi-file-o",
+        items: [
+          {
+            label: "Report",
+            icon: "pi pi-chart-bar",
+            routerLink: "/current-expense",
+          },
+        ],
+      },
+      {
         label: "Monthly",
         icon: "pi pi-file-o",
         items: [
           {
-            label: "Delete",
-            icon: "pi pi-fw pi-trash",
-            routerLink: "/monthly-expense",
-          },
-          {
-            label: "Refresh",
-            icon: "pi pi-fw pi-refresh",
+            label: "Report",
+            icon: "pi pi-chart-bar",
             routerLink: "/monthly-expense",
           },
         ],
