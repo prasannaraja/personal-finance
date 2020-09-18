@@ -2,11 +2,19 @@
     <div class="example-button-row">
         <button mat-raised-button color="primary" (click)="openDialog()">Add Expenses</button>
     </div>
-    <div>
-        <span>{{currentMonthTotal}}</span>
+    <div class="txt-right">
+        <span>Total: </span>
+        <span>{{currentMonthTotal|currency:'&#8377;'}}</span>
     </div>
 </div>
-
+<br />
+<mat-chip-list [multiple]="true" [selectable]="true">
+    <mat-chip *ngFor="let category of categories" #chip="matChip"
+        (click)="category.selected ? chip.deselect() : chip.selectViaInteraction()" [selected]="category.selected"
+        (selectionChange)="changeSelected(category)" class="leadr-category-chip">
+        {{category.name}}
+    </mat-chip>
+</mat-chip-list>
 <br />
 <div class="mat-elevation-z8">
     <table mat-table [dataSource]="dataSource">
@@ -80,5 +88,5 @@
         <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
     </table>
 
-    <mat-paginator [pageSize]="10" [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+    <mat-paginator [pageSize]="10" [pageSizeOptions]="[5, 10, 20, 50]" showFirstLastButtons></mat-paginator>
 </div>

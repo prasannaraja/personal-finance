@@ -12,13 +12,14 @@ import { ValidationService } from "./validation.service";
 import { HttpClientModule } from "@angular/common/http";
 import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from "@angular/material/form-field";
 import { MatNativeDateModule } from "@angular/material/core";
-import { platformBrowserDynamic } from "@angular/platform-browser-dynamic";
 import { DashboardComponent } from "./dashboard/dashboard.component";
 import { CurrentComponent } from "./current/current.component";
 import { ConfirmDialogComponent } from "./Components/Shared/confirm-dialog/confirm-dialog.component";
 import { GroupComponent } from "./group/group.component";
 import { CategoryComponent } from "./category/category.component";
-import { AddCatergoryComponent } from './add-catergory/add-catergory.component';
+import { AddCatergoryComponent } from "./add-catergory/add-catergory.component";
+import { MenubarModule } from "primeng/menubar";
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 
 @NgModule({
   declarations: [
@@ -31,6 +32,7 @@ import { AddCatergoryComponent } from './add-catergory/add-catergory.component';
     GroupComponent,
     CategoryComponent,
     AddCatergoryComponent,
+    PageNotFoundComponent,
   ],
   entryComponents: [ConfirmDialogComponent],
   imports: [
@@ -42,6 +44,7 @@ import { AddCatergoryComponent } from './add-catergory/add-catergory.component';
     MatNativeDateModule,
     ReactiveFormsModule,
     AppRoutingModule,
+    MenubarModule,
   ],
   providers: [
     ValidationService,

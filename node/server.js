@@ -19,14 +19,46 @@ app.get("/", (req, res, next) => {
   res.json({ message: "Ok" });
 });
 
+app.use(
+  bodyParser.urlencoded({
+    extended: true,
+  })
+);
+
 //api-expense
 
-app.get("/api/expenses", (req, res, next) => {
-  //var sql = "select * from expenses";
+app.get("/api/expenses/:month", (req, res, next) => {
+  var ids = [];
+  var month = req.params.month;
   var sql =
-    "select expenses.id as id,expenses.expense_text as expense_text,expenses.amount as amount,expenses.expense_comment as expense_comment,groups.name as expense_group_name,category.name as expense_category_name,groups.id as expense_group,expenses.expense_category as expense_category,expenses.expense_date as expense_date	from expenses join category on expenses.expense_category = category.id join groups on groups.id = category.group_id order by expenses.id desc";
-  var params = [];
-  db.all(sql, params, (err, rows) => {
+    "select " +
+    "expenses.id as id," +
+    "expenses.expense_text as expense_text," +
+    "expenses.amount as amount," +
+    "expenses.expense_comment as expense_comment," +
+    "groups.name as expense_group_name," +
+    "category.name as expense_category_name," +
+    "groups.id as expense_group," +
+    "expenses.expense_category as expense_category," +
+    "expenses.expense_date as expense_date " +
+    "from expenses join category on expenses.expense_category = category.id " +
+    "join groups on groups.id = category.group_id " +
+    "where ";
+  sql =
+    ids.length > 0
+      ? sql +
+        "expense_category in (" +
+        ids
+          .map(function (x) {
+            return x;
+          })
+          .join(",") +
+        ") and month =? order by expenses.id desc"
+      : sql + " month =? order by expenses.id desc";
+
+  //process.stdout.write(sql);
+
+  db.all(sql, month, (err, rows) => {
     if (err) {
       res.status(400).json({ error: err.message });
       return;
@@ -361,6 +393,21 @@ app.get("/api/currentMonthTotal", (req, res, next) => {
     "SELECT SUM(amount) FILTER (WHERE month =  strftime('%m','now')) [cTotal] from groups g left join category c on g.id = c.group_id left join expenses e on e.expense_category = c.id where g.id not in (1,2)";
   var params = [];
   db.all(sql, params, (err, rows) => {
+    if (err) {
+      res.status(400).json({ error: err.message });
+      return;
+    }
+    res.json({
+      message: "success",
+      data: rows,
+    });
+  });
+});
+
+app.get("/api/currentMonthTags/:month", (req, res, next) => {
+  var sql =
+    "SELECT category.name, count(expenses.id) as rowcount,category.id as id from expenses join category on expenses.expense_category = category.id  where expenses.month=?  group by category.name,category.id order by rowcount desc";
+  db.all(sql, req.params.month, (err, rows) => {
     if (err) {
       res.status(400).json({ error: err.message });
       return;

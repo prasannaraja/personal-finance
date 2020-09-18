@@ -12,8 +12,8 @@ export class ApiService {
 
   //api-expense
 
-  getExpense(): Observable<Expense[]> {
-    return this.http.get<Expense[]>("/api/expenses");
+  getExpense(month: number): Observable<Expense[]> {
+    return this.http.get<Expense[]>("/api/expenses/" + month);
   }
 
   addExpense(expense: Expense): Observable<any> {
@@ -62,5 +62,9 @@ export class ApiService {
 
   getCurrentMonthTotal(): Observable<any> {
     return this.http.get<any>("/api/currentMonthTotal");
+  }
+
+  getCurrentMonthTags(month: number): Observable<any> {
+    return this.http.get<any>("/api/currentMonthTags/" + month);
   }
 }

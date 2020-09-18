@@ -1,4 +1,4 @@
-<mat-toolbar color="primary">
+<!-- <mat-toolbar color="primary">
   <mat-toolbar-row>
     <button mat-icon-button>
       <mat-icon>menu</mat-icon>
@@ -17,7 +17,9 @@
       <a mat-button [routerLink]="'/create-activity'"> Create Rules </a>
     </div>
   </mat-toolbar-row>
-</mat-toolbar>
+</mat-toolbar> -->
+<p-menubar [model]="items"></p-menubar>
+
 <div class="basic-container">
   <router-outlet></router-outlet>
   <span class="version-info">Current build: 10.1.3</span>

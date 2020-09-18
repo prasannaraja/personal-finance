@@ -70,11 +70,14 @@ export class DailyComponent implements OnInit {
 
   changeSelected($event, category): void {
     category.selected = $event.selected;
+
     if (this.lastClick >= Date.now() - this.delay) return;
-    this.lastClick = Date.now();
-    this.formGroup.controls["expense"].setValue(category.name);
-    this.formGroup.controls["comment"].setValue(category.name);
-    this.formGroup.controls["categoryId"].setValue(category.id);
+    else {
+      this.lastClick = Date.now();
+      this.formGroup.controls["expense"].setValue(category.name);
+      this.formGroup.controls["comment"].setValue(category.name);
+      this.formGroup.controls["categoryId"].setValue(category.id);
+    }
   }
 
   onSubmit(data) {

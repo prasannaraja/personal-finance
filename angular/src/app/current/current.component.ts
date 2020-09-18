@@ -42,6 +42,8 @@ export class CurrentComponent implements OnInit {
   ];
   dataSource: any;
   currentMonthTotal: number;
+  month: number;
+  categories: any;
 
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
 
@@ -52,22 +54,37 @@ export class CurrentComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.loadExpenseTable();
+    this.month = 9;
+    this.loadExpenseTable(this.month);
     this.getCurrentMonthTotal();
+    this.getCurrentMonthTags(this.month);
   }
 
   getCurrentMonthTotal() {
     this.apiService.getCurrentMonthTotal().subscribe((total: any) => {
       this.currentMonthTotal = total.data[0].cTotal;
-      console.log(total);
     });
   }
 
-  loadExpenseTable() {
-    this.apiService.getExpense().subscribe((expenses: any) => {
+  getCurrentMonthTags(month) {
+    this.apiService.getCurrentMonthTags(month).subscribe((tags: any) => {
+      this.categories = tags.data;
+    });
+  }
+
+  selectedChips: any[] = [];
+
+  changeSelected(category: any) {
+    this.selectedChips.push(category);
+    console.log(this.selectedChips);
+  }
+
+  loadExpenseTable(month: number) {
+    this.apiService.getExpense(month).subscribe((expenses: any) => {
       this.dataSource = new MatTableDataSource<Expense>(expenses.data);
       this.dataSource.paginator = this.paginator;
     });
+    this.getCurrentMonthTags(this.month);
   }
 
   deleteExpense(expenseId: number) {
@@ -90,7 +107,8 @@ export class CurrentComponent implements OnInit {
             this._snackBar.openFromComponent(ExpenseDeletedSnackBarComponent, {
               duration: 3000,
             });
-            this.loadExpenseTable();
+            this.loadExpenseTable(this.month);
+            this.getCurrentMonthTotal();
           },
           (error) => {
             console.log("error:");
@@ -111,7 +129,8 @@ export class CurrentComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe((result) => {
       console.log(`Dialog result: ${result}`);
-      this.loadExpenseTable();
+      this.loadExpenseTable(this.month);
+      this.getCurrentMonthTotal();
     });
   }
 }
